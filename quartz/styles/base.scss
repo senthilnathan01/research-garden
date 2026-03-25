@@ -253,8 +253,24 @@ a {
       @media all and ($mobile) {
         margin-left: inherit;
         margin-right: inherit;
+        position: initial;
+        height: auto;
+        width: 100%;
+        flex-direction: column;
+        padding: 0;
+        overflow: visible;
+
+        & > * {
+          flex: 0 0 auto;
+          max-height: none;
+          min-height: 0;
+        }
+
+        & > .toc {
+          display: none;
+        }
       }
-      @media all and not ($desktop) {
+      @media all and ($tablet) {
         position: initial;
         height: unset;
         width: 100%;

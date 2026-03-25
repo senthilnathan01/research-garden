@@ -1,20 +1,20 @@
 {
   "main": {
-    "id": "746749d32308fac3",
+    "id": "04cb893c9e351a25",
     "type": "split",
     "children": [
       {
-        "id": "81e4487a9bfc5a77",
+        "id": "bae047c0fa4e6b35",
         "type": "tabs",
         "children": [
           {
-            "id": "978d25b3e845d3e5",
+            "id": "b84fab2a415805d2",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "graph",
               "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
             }
           }
         ]
@@ -23,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "0569d74308d1a880",
+    "id": "13e4d9bccffaaf07",
     "type": "split",
     "children": [
       {
-        "id": "fdb7ae15b62c50f4",
+        "id": "bc9a805d075b923c",
         "type": "tabs",
         "children": [
           {
-            "id": "098f6ad8ab73fb14",
+            "id": "ee2ec33cc6c97ec9",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,7 +44,7 @@
             }
           },
           {
-            "id": "ac49111ba7b41ebd",
+            "id": "4f84dafcbf4867ca",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +61,7 @@
             }
           },
           {
-            "id": "19820359ed07ff15",
+            "id": "5b993d4bf72aa5e1",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -77,15 +77,15 @@
     "width": 300
   },
   "right": {
-    "id": "21a26a485d976f48",
+    "id": "02756d6e2490d975",
     "type": "split",
     "children": [
       {
-        "id": "ef8e6d8009ab18f6",
+        "id": "bc09b5f82b5fd2b7",
         "type": "tabs",
         "children": [
           {
-            "id": "f0be31f2a2da5ac8",
+            "id": "8724dd520c8cf0ee",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -103,7 +103,7 @@
             }
           },
           {
-            "id": "4f791114e06a0efa",
+            "id": "0a3dea8b55f955fd",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -116,7 +116,7 @@
             }
           },
           {
-            "id": "08882ffa703cd038",
+            "id": "91e6fcae94322b82",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -131,7 +131,7 @@
             }
           },
           {
-            "id": "c4e13f778f9ff681",
+            "id": "4e9fc4a7d38f705c",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -145,7 +145,7 @@
             }
           },
           {
-            "id": "b26bd3c3344e08bf",
+            "id": "bea3273b0d6a460d",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -176,22 +176,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "978d25b3e845d3e5",
+  "active": "b84fab2a415805d2",
   "lastOpenFiles": [
-    "Untitled.canvas",
-    "node_modules/node-addon-api/README.md",
-    "content/projects/open-ai-challenge-parameter-golf/notes/index.md",
-    "public/postscript.js",
-    "public/prescript.js",
-    "public/index.css",
-    "public/tags/paper.html",
-    "public/tags/templates.html",
-    "public/tags/resources.html",
-    "public/tags/papers.html",
-    "public/tags/overview.html",
-    "public/templates/resource-note-template.html",
-    "public/tags/notes.html",
-    "public/static/og-image.png",
-    "public/static/icon.png"
+    "templates/project-index-template.md",
+    "templates/index.md",
+    "templates/experiment-note-template.md"
   ]
 }

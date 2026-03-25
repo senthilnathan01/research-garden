@@ -1,17 +1,33 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
+const footerLinks = {
+  "Main Site": "https://senthilnathan01.github.io/",
+  "Garden Source": "https://github.com/senthilnathan01/research-garden",
+  Quartz: "https://github.com/jackyzha0/quartz",
+}
+
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
-  footer: Component.Footer({
-    links: {
-      "Main Site": "https://senthilnathan01.github.io/",
-      "Garden Source": "https://github.com/senthilnathan01/research-garden",
-      Quartz: "https://github.com/jackyzha0/quartz",
-    },
-  }),
+  afterBody: [
+    Component.MobileOnly(Component.Backlinks()),
+    Component.MobileOnly(
+      Component.RecentNotes({
+        limit: 8,
+      }),
+    ),
+    Component.MobileOnly(
+      Component.Footer({
+        links: footerLinks,
+      }),
+    ),
+  ],
+  footer: Component.DesktopOnly(
+    Component.Footer({
+      links: footerLinks,
+    }),
+  ),
 }
 
 export const defaultContentPageLayout: PageLayout = {
