@@ -12,7 +12,7 @@ The goal is to keep every project self-contained while preserving cross-links be
 
 ## Current placeholder project
 
-- [[open-ai-challenge-parameter-golf/index|open-ai-challenge-parameter-golf]]
+- [[projects/open-ai-challenge-parameter-golf/index|open-ai-challenge-parameter-golf]]
 
 ## Add a new project
 
