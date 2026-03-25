@@ -7,12 +7,15 @@ tags:
 ---
 
 ## Goal
+
 [What exact question is this run answering?]
 
 ## Linked bet
+
 - [[idea-name]]
 
 ## Setup
+
 - repo:
 - branch:
 - commit:
@@ -24,9 +27,11 @@ tags:
 - run command:
 
 ## Expected result
+
 [What outcome would support the hypothesis?]
 
 ## Actual result
+
 - train loss:
 - val loss:
 - val_bpb:
@@ -35,8 +40,10 @@ tags:
 - notes:
 
 ## Interpretation
+
 [What did this actually mean?]
 
 ## Decision
+
 - continue / modify / stop / package
 - next run:

@@ -7,19 +7,23 @@ tags:
 ---
 
 ## Candidate summary
+
 [One paragraph summary.]
 
 ## Why this is interesting
+
 - [Reason]
 - [Reason]
 
 ## Repo packaging plan
+
 - source lab branch:
 - target fork branch:
 - target records folder:
 - files to include:
 
 ## Reproducibility checklist
+
 - [ ] clean run command exists
 - [ ] logs attached
 - [ ] size under limit
@@ -28,13 +32,16 @@ tags:
 - [ ] submission.json drafted
 
 ## Evidence
+
 - best run:
 - average over runs:
 - significance notes:
 
 ## Risks before PR
+
 - [Risk]
 - [Risk]
 
 ## Final decision
+
 - not ready / non-record / record attempt

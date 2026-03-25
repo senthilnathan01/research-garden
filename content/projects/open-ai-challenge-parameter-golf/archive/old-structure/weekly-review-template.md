@@ -6,24 +6,29 @@ tags:
 ---
 
 ## What we learned
+
 - [Learning]
 - [Learning]
 
 ## What failed
+
 - [Failure]
 - [Failure]
 
 ## Best current bets
+
 1. [Bet]
 2. [Bet]
 
 ## Biggest bottlenecks
+
 - understanding:
 - compute:x
 - reproducibility:
 - code quality:
 
 ## Next week's plan
+
 - [Task]
 - [Task]
 - [Task]

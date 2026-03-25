@@ -7,9 +7,11 @@ tags:
 ---
 
 ## Core objective
+
 [What exactly are we optimizing?]
 
 ## Hard limits
+
 - artifact size:
 - training budget:
 - evaluation budget:
@@ -17,24 +19,29 @@ tags:
 - forbidden external dependencies:
 
 ## What counts toward the artifact
+
 - model bytes:
 - code bytes:
 - packaging notes:
 
 ## Evaluation constraints
+
 - dataset / split:
 - metric:
 - validation restrictions:
 - test-time adaptation rules:
 
 ## Submission requirements
+
 - required files:
 - statistical significance requirement:
 - reproducibility requirement:
 
 ## Practical implications
+
 - [What these rules imply for design]
 - [What they rule out]
 
 ## Open questions
+
 - [Question]
