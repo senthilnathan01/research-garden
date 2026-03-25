@@ -25,9 +25,8 @@ export const defaultContentPageLayout: PageLayout = {
     Component.TagList(),
   ],
   left: [
-    Component.PageTitle(),
-    Component.GardenNav(),
-    Component.MobileOnly(Component.Spacer()),
+    Component.GardenBrand(),
+    Component.DesktopOnly(Component.GardenNav()),
     Component.Flex({
       components: [
         {
@@ -35,26 +34,29 @@ export const defaultContentPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        { Component: Component.DesktopOnly(Component.ReaderMode()) },
       ],
+      wrap: "wrap",
       gap: "0.5rem",
     }),
     Component.Explorer({
-      title: "Garden Explorer",
+      title: "Browse Garden",
       folderDefaultState: "collapsed",
     }),
   ],
   right: [
-    Component.Graph({
-      localGraph: {
-        depth: 2,
-        enableRadial: true,
-      },
-      globalGraph: {
-        depth: -1,
-        enableRadial: true,
-      },
-    }),
+    Component.DesktopOnly(
+      Component.Graph({
+        localGraph: {
+          depth: 2,
+          enableRadial: true,
+        },
+        globalGraph: {
+          depth: -1,
+          enableRadial: true,
+        },
+      }),
+    ),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.RecentNotes({
@@ -73,9 +75,8 @@ export const defaultListPageLayout: PageLayout = {
     Component.ContentMeta(),
   ],
   left: [
-    Component.PageTitle(),
-    Component.GardenNav(),
-    Component.MobileOnly(Component.Spacer()),
+    Component.GardenBrand(),
+    Component.DesktopOnly(Component.GardenNav()),
     Component.Flex({
       components: [
         {
@@ -83,17 +84,18 @@ export const defaultListPageLayout: PageLayout = {
           grow: true,
         },
         { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
+        { Component: Component.DesktopOnly(Component.ReaderMode()) },
       ],
+      wrap: "wrap",
       gap: "0.5rem",
     }),
     Component.Explorer({
-      title: "Garden Explorer",
+      title: "Browse Garden",
       folderDefaultState: "collapsed",
     }),
   ],
   right: [
-    Component.Graph(),
+    Component.DesktopOnly(Component.Graph()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
     Component.RecentNotes({
