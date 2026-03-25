@@ -1,5 +1,5 @@
 ---
-title: [Idea / Bet Name]
+title: "[Idea / Bet Name]"
 description: A candidate idea and why it might improve challenge score under the given constraints.
 tags:
   - idea

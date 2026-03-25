@@ -1,5 +1,5 @@
 ---
-title: [YYYY-MM-DD] [Experiment Name]
+title: "[YYYY-MM-DD] [Experiment Name]"
 description: A concrete run log for one experiment or ablation.
 tags:
   - experiment

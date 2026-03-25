@@ -1,5 +1,5 @@
 ---
-title: [Candidate Submission Name]
+title: "[Candidate Submission Name]"
 description: Clean dossier for a possible PR-ready submission.
 tags:
   - submission

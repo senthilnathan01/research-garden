@@ -1,5 +1,5 @@
 ---
-title: Weekly Review - [Week]
+title: "Weekly Review - [Week]"
 description: Weekly synthesis of what changed, what failed, and what to do next.
 tags:
   - weekly-review
