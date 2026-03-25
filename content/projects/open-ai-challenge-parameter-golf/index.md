@@ -2,12 +2,12 @@
 
 This project tracks ideas, experiments, and candidate submissions for the parameter golf challenge.
 
-Use this folder as the small operating base for active bets, dated work logs, serious submission candidates, supporting references, local templates, and archived older notes.
+Use this folder as the small operating base for active bets, dated work logs, serious submission candidates, supporting references, and local templates.
 
 ## Current Status
 
 - Structure simplified on 2026-03-25.
-- Older project notes and templates were preserved in [archive](archive/README.md).
+- The folder now uses a small set of working areas instead of many note types.
 - No active bet files or candidate submissions are recorded yet.
 
 ## Active Bets
@@ -27,4 +27,3 @@ Use this folder as the small operating base for active bets, dated work logs, se
 - [Submissions](submissions/README.md)
 - [References](references/README.md)
 - [Templates](templates/bet-template.md)
-- [Archive](archive/README.md)
