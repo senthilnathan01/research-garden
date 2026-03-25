@@ -1,32 +1,30 @@
----
-title: Open AI Challenge Parameter Golf
-description: Placeholder project scaffold demonstrating how a single project should be organized inside the research garden.
-tags:
-  - project
-  - placeholder
----
+# OpenAI Challenge Parameter Golf
 
-This folder is a **placeholder project scaffold**.
+This project tracks ideas, experiments, and candidate submissions for the parameter golf challenge.
 
-It exists only to demonstrate the reusable information architecture for one project inside the wider garden. Replace the placeholder text here with real project-specific content when you duplicate this structure for a new slug.
+Use this folder as the small operating base for active bets, dated work logs, serious submission candidates, supporting references, local templates, and archived older notes.
 
-## Project sections
+## Current Status
 
-- [[overview|Overview]]
-- [[papers/index|Papers]]
-- [[notes/index|Notes]]
-- [[resources/index|Resources]]
-- [[experiments/index|Experiments]]
+- Structure simplified on 2026-03-25.
+- Older project notes and templates were preserved in [archive](archive/README.md).
+- No active bet files or candidate submissions are recorded yet.
 
-## What this page should become
+## Active Bets
 
-When reused for a real project, this page should answer:
+- No active bet note yet. Start one in [bets](bets/README.md) with the [bet template](templates/bet-template.md).
 
-- what the project is
-- why it exists
-- which questions matter most right now
-- where a reader should go next
+## Next Three Actions
 
-## Placeholder reminder
+1. Write the first live bet in [bets](bets/README.md).
+2. Add a short dated entry in [log](log/README.md) with the latest constraint, experiment, or learning.
+3. Capture key challenge rules, links, and repo notes in [references](references/README.md).
 
-This sample does **not** contain real papers, summaries, experiment results, or domain claims. It is only a structural example.
+## Project Areas
+
+- [Bets](bets/README.md)
+- [Log](log/README.md)
+- [Submissions](submissions/README.md)
+- [References](references/README.md)
+- [Templates](templates/bet-template.md)
+- [Archive](archive/README.md)
