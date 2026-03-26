@@ -6,7 +6,6 @@ This repository is a reusable Quartz 4 research garden for multiple projects, pu
 
 <img width="1278" height="858" alt="Screenshot 2026-03-26 at 11 13 26 AM" src="https://github.com/user-attachments/assets/4983c222-02bf-42f7-ba4e-f7a884bd2332" />
 
-
 It is designed as a long-lived garden, not a single-project microsite. New work should live under `content/projects/<project-slug>/`.
 
 ## What this repo contains
