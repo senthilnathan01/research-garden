@@ -30,13 +30,12 @@
 .explorer {
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow: hidden;
 
-  min-height: 1.2rem;
   flex: 0 1 auto;
 
   &.collapsed {
-    flex: 0 1 1.2rem;
+    flex: 0 1 auto;
 
     & .fold {
       transform: rotateZ(-90deg);
@@ -103,6 +102,9 @@ button.desktop-explorer {
   color: var(--dark);
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
 
   & h2 {
     font-size: 1rem;
@@ -116,6 +118,11 @@ button.desktop-explorer {
   overflow: hidden;
   overflow-y: auto;
   margin-top: 0.5rem;
+  transition:
+    margin-top 0.2s ease,
+    max-height 0.2s ease,
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 
   & ul {
     list-style: none;
@@ -158,6 +165,19 @@ button.desktop-explorer {
     padding-left: 0.8rem;
     border-left: 1px solid var(--lightgray);
   }
+}
+
+.explorer.collapsed > .explorer-content {
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.explorer:not(.collapsed) > .explorer-content {
+  opacity: 1;
+  visibility: visible;
 }
 
 .folder-container {
@@ -223,7 +243,7 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
 .explorer {
   @media all and ($mobile) {
     &.collapsed {
-      flex: 0 0 34px;
+      flex: 0 0 auto;
 
       & > .explorer-content {
         transform: translateX(-100vw);
@@ -232,7 +252,7 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
     }
 
     &:not(.collapsed) {
-      flex: 0 0 34px;
+      flex: 0 0 auto;
 
       & > .explorer-content {
         transform: translateX(0);
@@ -265,6 +285,8 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
       margin: 0;
       padding: 5px;
       z-index: 101;
+      min-height: 2.75rem;
+      box-sizing: border-box;
 
       .lucide-menu {
         stroke: var(--darkgray);

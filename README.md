@@ -63,24 +63,24 @@ Every project lives under a dedicated slug:
 content/projects/<project-slug>/
 ```
 
-The placeholder project included in this repo is the reference scaffold:
+Projects are flexible, but the placeholder project included in this repo is the reference scaffold:
 
 ```text
 content/projects/open-ai-challenge-parameter-golf/
 ```
 
-Each project folder is expected to include:
+The included scaffold currently uses:
 
 ```text
 index.md
-overview.md
-papers/index.md
-notes/index.md
-resources/index.md
-experiments/index.md
+bets/index.md
+log/index.md
+references/index.md
+submissions/index.md
+templates/
 ```
 
-Use those pages as durable entry points, then add child notes beneath the relevant folders over time.
+Use those pages as durable entry points, then add child notes beneath the relevant folders over time. If a future project needs a different structure, duplicate the sample and rename the working areas rather than forcing every project into the same taxonomy.
 
 ## Create a new project from the placeholder scaffold
 
@@ -92,8 +92,9 @@ cp -R content/projects/open-ai-challenge-parameter-golf content/projects/<new-pr
 
 2. Update frontmatter titles, descriptions, and placeholder text in the copied files.
 3. Replace internal links so they point to the new slug instead of `open-ai-challenge-parameter-golf`.
-4. Add real notes under `papers/`, `notes/`, `resources/`, and `experiments/` as the project grows.
-5. Add the new project to `content/projects/index.md`.
+4. Keep the sample working areas or rename them to fit the project.
+5. Add real notes under the relevant folders as the project grows.
+6. Add the new project to `content/projects/index.md`.
 
 ## Reusable Markdown templates
 

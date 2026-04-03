@@ -7,16 +7,20 @@ const footerLinks = {
   Quartz: "https://github.com/jackyzha0/quartz",
 }
 
+const recentNotesConfig = {
+  limit: 8,
+  filter: (page: { slug?: string; frontmatter?: { tags?: string[] } }) =>
+    !page.slug?.startsWith("templates/") &&
+    !page.slug?.includes("/templates/") &&
+    !page.frontmatter?.tags?.includes("index"),
+}
+
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
     Component.MobileOnly(Component.Backlinks()),
-    Component.MobileOnly(
-      Component.RecentNotes({
-        limit: 8,
-      }),
-    ),
+    Component.MobileOnly(Component.RecentNotes(recentNotesConfig)),
     Component.MobileOnly(
       Component.Footer({
         links: footerLinks,
@@ -75,9 +79,7 @@ export const defaultContentPageLayout: PageLayout = {
     ),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-    Component.RecentNotes({
-      limit: 8,
-    }),
+    Component.RecentNotes(recentNotesConfig),
   ],
 }
 
@@ -114,8 +116,6 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Graph()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
-    Component.RecentNotes({
-      limit: 8,
-    }),
+    Component.RecentNotes(recentNotesConfig),
   ],
 }

@@ -53,14 +53,18 @@
     overflow-y: auto;
     display: none;
     backdrop-filter: blur(4px);
+    overscroll-behavior: contain;
+    background: color-mix(in srgb, var(--dark) 18%, transparent);
 
     &.active {
       display: inline-block;
     }
 
     & > .search-space {
-      width: 65%;
-      margin-top: 12vh;
+      width: calc(100vw - 2rem);
+      max-width: 72rem;
+      margin-top: max(10vh, 3.5rem);
+      margin-bottom: 2rem;
       margin-left: auto;
       margin-right: auto;
 
