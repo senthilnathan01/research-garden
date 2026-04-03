@@ -304,11 +304,7 @@ button.toc-header h3 {
   border-radius: 10px;
 }
 
-.graph > .global-graph-outer {
-  padding: 0 0.9rem 0.9rem 0.9rem;
-}
-
-.graph > .global-graph-outer > .global-graph-container {
+.graph-host > .global-graph-outer > .global-graph-container {
   border: 1px solid var(--line);
   background: var(--surface-raised) !important;
   border-radius: 10px;
@@ -619,7 +615,7 @@ footer a {
   }
 
   .graph > .graph-outer,
-  .graph > .global-graph-outer > .global-graph-container {
+  .graph-host > .global-graph-outer > .global-graph-container {
     min-height: 14rem;
   }
 
@@ -733,8 +729,7 @@ footer a {
   }
 
   .graph > h3,
-  .graph > .graph-outer,
-  .graph > .global-graph-outer {
+  .graph > .graph-outer {
     margin-left: 0.8rem;
     margin-right: 0.8rem;
   }
