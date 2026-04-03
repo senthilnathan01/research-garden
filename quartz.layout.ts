@@ -9,6 +9,7 @@ const footerLinks = {
 
 const recentNotesConfig = {
   limit: 8,
+  showTags: false,
   filter: (page: { slug?: string; frontmatter?: { tags?: string[] } }) =>
     !page.slug?.startsWith("templates/") &&
     !page.slug?.includes("/templates/") &&

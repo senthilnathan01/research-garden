@@ -52,9 +52,17 @@ function pageKind(page: QuartzPluginData): string {
 type Props = {
   limit?: number
   sort?: SortFn
+  showTags?: boolean
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
+export const PageList: QuartzComponent = ({
+  cfg,
+  fileData,
+  allFiles,
+  limit,
+  sort,
+  showTags = true,
+}: Props) => {
   const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit) {
@@ -84,18 +92,20 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
                 </h3>
                 {description && <p class="section-summary">{description}</p>}
               </div>
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li>
-                    <a
-                      class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                    >
-                      {tag}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {showTags && (
+                <ul class="tags">
+                  {tags.map((tag) => (
+                    <li>
+                      <a
+                        class="internal tag-link"
+                        href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
+                      >
+                        {tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </li>
         )
