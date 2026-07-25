@@ -16,7 +16,7 @@ export default defineConfig({
       favicon: "/icon.png",
       customCss: ["./src/styles/custom.css"],
       editLink: {
-        baseUrl: "https://github.com/senthilnathan01/research-garden/edit/main/src/content/docs/",
+        baseUrl: "https://github.com/senthilnathan01/research-garden/edit/main/",
       },
       lastUpdated: true,
       social: [

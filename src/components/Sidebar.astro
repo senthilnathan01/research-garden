@@ -47,8 +47,14 @@ if (projectId) {
           .map((entry) => keepPrefix(entry, prefix))
           .filter((entry): entry is SidebarEntry => entry !== undefined)
       : []
+  const projectHome = findLink(projectEntries, prefix)
+  const namedProjectEntries = projectEntries.map((entry) =>
+    entry.type === "group" && projectHome?.type === "link"
+      ? { ...entry, label: projectHome.label }
+      : entry,
+  )
 
-  scopedSidebar = [...(projectsLink ? [projectsLink] : []), ...projectEntries]
+  scopedSidebar = [...(projectsLink ? [projectsLink] : []), ...namedProjectEntries]
 } else if (id === "projects") {
   scopedSidebar = [gardenGroup, projectsGroup].filter(
     (entry): entry is SidebarEntry => entry !== undefined,

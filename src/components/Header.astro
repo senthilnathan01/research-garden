@@ -7,6 +7,7 @@ import ThemeSelect from "@astrojs/starlight/components/ThemeSelect.astro"
 import SiteTitle from "./SiteTitle.astro"
 
 const base = import.meta.env.BASE_URL
+const { id } = Astro.locals.starlightRoute
 const shouldRenderSearch =
   config.pagefind || config.components.Search !== "@astrojs/starlight/components/Search.astro"
 ---
@@ -17,9 +18,13 @@ const shouldRenderSearch =
   </div>
   <div class="center-group sl-flex print:hidden">
     <nav class="global-nav" aria-label="Garden">
-      <a href={`${base}projects/`}>Projects</a>
-      <a href={`${base}graph/`}>Graph</a>
-      <a href={`${base}templates/`}>Templates</a>
+      <a href={`${base}projects/`} aria-current={id.startsWith("projects") ? "page" : undefined}>
+        Projects
+      </a>
+      <a href={`${base}graph/`} aria-current={id === "graph" ? "page" : undefined}>Graph</a>
+      <a href={`${base}templates/`} aria-current={id.startsWith("templates") ? "page" : undefined}>
+        Templates
+      </a>
     </nav>
     {shouldRenderSearch && <Search />}
   </div>
@@ -72,7 +77,8 @@ const shouldRenderSearch =
     }
 
     .global-nav a:hover,
-    .global-nav a:focus-visible {
+    .global-nav a:focus-visible,
+    .global-nav a[aria-current="page"] {
       color: var(--sl-color-text-accent);
     }
 
@@ -89,6 +95,10 @@ const shouldRenderSearch =
     }
 
     @media (min-width: 50rem) {
+      .title-wrapper {
+        min-width: 8.5rem;
+      }
+
       :global(:root[data-has-sidebar]) {
         --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
       }
