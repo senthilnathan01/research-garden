@@ -8,9 +8,6 @@ const SiteHeader: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
   return (
     <div class="site-header">
       <a class="site-header-brand" href={root}>
-        <span class="site-header-mark" aria-hidden="true">
-          RG
-        </span>
         <span>
           <strong>Research Garden</strong>
           <small>Senthilnathan</small>
@@ -41,13 +38,12 @@ SiteHeader.css = `
 .site-header-brand {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
   min-width: 14.5rem;
   color: var(--dark) !important;
   text-decoration: none;
 }
 
-.site-header-brand > span:last-child {
+.site-header-brand > span {
   display: flex;
   flex-direction: column;
   gap: 0.04rem;
@@ -66,21 +62,6 @@ SiteHeader.css = `
   font-family: var(--codeFont);
   font-size: 0.62rem;
   letter-spacing: 0.04em;
-}
-
-.site-header-mark {
-  display: grid;
-  width: 1.9rem;
-  height: 1.9rem;
-  place-items: center;
-  border-radius: 8px;
-  background: var(--secondary);
-  color: white;
-  font-family: var(--codeFont);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  box-shadow: 0 5px 16px color-mix(in srgb, var(--secondary) 24%, transparent);
 }
 
 .site-header-nav {
