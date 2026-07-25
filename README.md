@@ -82,8 +82,10 @@ Copy that folder when the structure fits. Rename or remove sections when it does
 After copying it:
 
 1. Update the frontmatter, descriptions, and links.
-2. Add the project to `src/content/docs/projects/index.md`.
+2. Keep `content_type: project` on the project index.
 3. Run `npm run verify`.
+
+Published project indexes are discovered automatically. A new project appears in the homepage directory, the projects page, the scoped sidebar, and the graph selector without another navigation edit.
 
 The reusable page templates live in `src/content/docs/templates/`.
 

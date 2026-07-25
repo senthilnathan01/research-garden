@@ -3,86 +3,420 @@ import { buildGardenGraph } from "../lib/content-graph"
 
 const graph = buildGardenGraph()
 const base = import.meta.env.BASE_URL
-const width = 820
-const height = 500
-const centerX = width / 2
-const centerY = height / 2
-const radius = 205
-const positions = new Map(
-  graph.pages.map((page, index) => {
-    const angle = -Math.PI / 2 + (index / graph.pages.length) * Math.PI * 2
-    const depth = page.id.split("/").filter(Boolean).length
-    const depthOffset = Math.min(depth, 4) * 18
-    return [
-      page.id,
-      {
-        x: centerX + Math.cos(angle) * (radius + depthOffset),
-        y: centerY + Math.sin(angle) * (radius + depthOffset),
-      },
-    ]
-  }),
-)
+const projects = graph.pages.filter((page) => page.contentType === "project")
+const pageKinds = [...new Set(graph.pages.map((page) => page.contentType))].sort()
+const graphData = JSON.stringify({ ...graph, base }).replace(/</g, "\\u003c")
 ---
 
 <section class="graph-explorer" aria-labelledby="graph-title" data-pagefind-ignore>
-  <div class="graph-heading">
+  <header class="graph-heading">
     <div>
       <p class="graph-kicker">Content map</p>
-      <h2 id="graph-title">{graph.pages.length} notes, {graph.edges.length} links</h2>
+      <h2 id="graph-title">Explore the garden</h2>
     </div>
-    <p>Every node is a page. Every line is a link written in the notes.</p>
+    <p>Pan, zoom, and drag nodes. Choose a project to keep large gardens readable.</p>
+  </header>
+
+  <div class="graph-toolbar">
+    <label>
+      <span>Scope</span>
+      <select class="graph-scope">
+        <option value="research">All research</option>
+        {projects.map((project) => <option value={project.id}>{project.title}</option>)}
+      </select>
+    </label>
+    <div class="graph-zoom-controls" aria-label="Graph zoom">
+      <button class="graph-zoom-out" type="button" aria-label="Zoom out">−</button>
+      <button class="graph-reset" type="button">Reset</button>
+      <button class="graph-zoom-in" type="button" aria-label="Zoom in">+</button>
+    </div>
   </div>
+
   <div class="graph-canvas">
-    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby="graph-svg-title">
-      <title id="graph-svg-title">Research Garden content graph</title>
-      <g class="graph-edges" aria-hidden="true">
-        {
-          graph.edges.map((edge) => {
-            const source = positions.get(edge.source)
-            const target = positions.get(edge.target)
-            return source && target ? (
-              <line x1={source.x} y1={source.y} x2={target.x} y2={target.y} />
-            ) : null
-          })
-        }
+    <svg viewBox="0 0 900 540" role="img" aria-labelledby="graph-svg-title graph-status">
+      <title id="graph-svg-title">Interactive research garden content graph</title>
+      <g class="graph-viewport">
+        <g class="graph-edges" aria-hidden="true"></g>
+        <g class="graph-nodes"></g>
       </g>
-      <g class="graph-nodes">
-        {
-          graph.pages.map((page) => {
-            const position = positions.get(page.id)
-            if (!position) return null
-            const isRoot = page.id === ""
-            return (
-              <a href={`${base}${page.id ? `${page.id}/` : ""}`} aria-label={page.title}>
-                <circle
-                  cx={position.x}
-                  cy={position.y}
-                  r={isRoot ? 10 : 6}
-                  class:list={{ root: isRoot }}
-                />
-                <title>{page.title}</title>
-              </a>
-            )
-          })
-        }
-      </g>
-      <text x={centerX} y={centerY - 7} text-anchor="middle">Research</text>
-      <text x={centerX} y={centerY + 15} text-anchor="middle">Garden</text>
     </svg>
   </div>
-  <details class="graph-index">
-    <summary>Browse all nodes</summary>
-    <ul>
+
+  <footer class="graph-status-row">
+    <p id="graph-status" class="graph-status" aria-live="polite"></p>
+    <p class="graph-selection" aria-live="polite">Select a node to see its details.</p>
+  </footer>
+
+  <section class="graph-directory" aria-labelledby="page-directory-title">
+    <header>
+      <div>
+        <p class="graph-kicker">Page directory</p>
+        <h3 id="page-directory-title">Browse pages</h3>
+      </div>
+      <p class="graph-directory-count" aria-live="polite"></p>
+    </header>
+    <div class="graph-directory-controls">
+      <label>
+        <span class="sr-only">Filter pages</span>
+        <input
+          class="graph-page-search"
+          type="search"
+          placeholder="Filter by title, summary, or tag"
+        />
+      </label>
+      <label>
+        <span class="sr-only">Filter by page type</span>
+        <select class="graph-page-kind">
+          <option value="">All page types</option>
+          {pageKinds.map((kind) => <option value={kind}>{kind}</option>)}
+        </select>
+      </label>
+    </div>
+    <ul class="graph-page-list"></ul>
+    <div class="graph-directory-footer">
+      <button class="graph-show-more" type="button">Show more</button>
+    </div>
+  </section>
+
+  <noscript>
+    <ul class="graph-fallback-list">
       {
         graph.pages.map((page) => (
           <li>
-            <a href={`${base}${page.id ? `${page.id}/` : ""}`}>
-              <strong>{page.title}</strong>
-              <span>{page.description}</span>
-            </a>
+            <a href={`${base}${page.id ? `${page.id}/` : ""}`}>{page.title}</a>
           </li>
         ))
       }
     </ul>
-  </details>
+  </noscript>
+
+  <script is:inline type="application/json" class="graph-data" set:html={graphData} />
 </section>
+
+<script>
+  type GraphPage = {
+    id: string
+    title: string
+    description: string
+    contentType: string
+    projectId?: string
+    tags: string[]
+  }
+
+  type GraphEdge = { source: string; target: string }
+  type Point = { x: number; y: number }
+
+  const SVG_NS = "http://www.w3.org/2000/svg"
+  const PAGE_BATCH = 24
+
+  function setUpGraph(root: HTMLElement) {
+    if (root.dataset.ready) return
+    root.dataset.ready = "true"
+
+    const data = JSON.parse(root.querySelector(".graph-data")?.textContent ?? "{}") as {
+      pages: GraphPage[]
+      edges: GraphEdge[]
+      base: string
+    }
+    const svg = root.querySelector<SVGSVGElement>("svg")
+    const viewport = root.querySelector<SVGGElement>(".graph-viewport")
+    const edgeLayer = root.querySelector<SVGGElement>(".graph-edges")
+    const nodeLayer = root.querySelector<SVGGElement>(".graph-nodes")
+    const scopeSelect = root.querySelector<HTMLSelectElement>(".graph-scope")
+    const status = root.querySelector<HTMLElement>(".graph-status")
+    const selection = root.querySelector<HTMLElement>(".graph-selection")
+    const pageSearch = root.querySelector<HTMLInputElement>(".graph-page-search")
+    const pageKind = root.querySelector<HTMLSelectElement>(".graph-page-kind")
+    const pageList = root.querySelector<HTMLUListElement>(".graph-page-list")
+    const pageCount = root.querySelector<HTMLElement>(".graph-directory-count")
+    const showMore = root.querySelector<HTMLButtonElement>(".graph-show-more")
+
+    if (
+      !svg ||
+      !viewport ||
+      !edgeLayer ||
+      !nodeLayer ||
+      !scopeSelect ||
+      !status ||
+      !selection ||
+      !pageSearch ||
+      !pageKind ||
+      !pageList ||
+      !pageCount ||
+      !showMore
+    ) {
+      return
+    }
+
+    let scale = 1
+    let offset = { x: 0, y: 0 }
+    let positions = new Map<string, Point>()
+    let visiblePages: GraphPage[] = []
+    let visibleEdges: GraphEdge[] = []
+    let renderedPages = PAGE_BATCH
+    let panning: { pointerId: number; x: number; y: number } | undefined
+    let dragging:
+      | { id: string; pointerId: number; startX: number; startY: number; moved: boolean }
+      | undefined
+
+    const hrefFor = (id: string) => `${data.base}${id ? `${id}/` : ""}`
+    const applyTransform = () => {
+      viewport.setAttribute("transform", `translate(${offset.x} ${offset.y}) scale(${scale})`)
+    }
+    const localPoint = (event: PointerEvent): Point => {
+      const point = svg.createSVGPoint()
+      point.x = event.clientX
+      point.y = event.clientY
+      const transformed = point.matrixTransform(svg.getScreenCTM()?.inverse())
+      return {
+        x: (transformed.x - offset.x) / scale,
+        y: (transformed.y - offset.y) / scale,
+      }
+    }
+
+    const pagesForScope = () => {
+      if (scopeSelect.value === "research") {
+        return data.pages.filter((page) => page.contentType !== "template")
+      }
+      return data.pages.filter(
+        (page) => page.id === scopeSelect.value || page.projectId === scopeSelect.value,
+      )
+    }
+
+    const layout = (pages: GraphPage[]) => {
+      const next = new Map<string, Point>()
+      const center = { x: 450, y: 270 }
+      const project = pages.find((page) => page.contentType === "project")
+      const orbit = project ? pages.filter((page) => page.id !== project.id) : pages
+
+      if (project) next.set(project.id, center)
+      orbit.forEach((page, index) => {
+        const ring = Math.floor(index / 18)
+        const ringItems = Math.min(18, orbit.length - ring * 18)
+        const ringIndex = index % 18
+        const radius = 150 + ring * 82
+        const angle = -Math.PI / 2 + (ringIndex / Math.max(ringItems, 1)) * Math.PI * 2
+        next.set(page.id, {
+          x: center.x + Math.cos(angle) * radius,
+          y: center.y + Math.sin(angle) * radius,
+        })
+      })
+
+      if (!project && pages.length === 1) next.set(pages[0].id, center)
+      return next
+    }
+
+    const updateEdges = () => {
+      edgeLayer.querySelectorAll<SVGLineElement>("line").forEach((line) => {
+        const source = positions.get(line.dataset.source ?? "")
+        const target = positions.get(line.dataset.target ?? "")
+        if (!source || !target) return
+        line.setAttribute("x1", `${source.x}`)
+        line.setAttribute("y1", `${source.y}`)
+        line.setAttribute("x2", `${target.x}`)
+        line.setAttribute("y2", `${target.y}`)
+      })
+    }
+
+    const highlight = (id?: string) => {
+      const related = new Set([id])
+      visibleEdges.forEach((edge) => {
+        if (edge.source === id) related.add(edge.target)
+        if (edge.target === id) related.add(edge.source)
+      })
+      nodeLayer.querySelectorAll<SVGGElement>(".graph-node").forEach((node) => {
+        node.classList.toggle("is-muted", Boolean(id) && !related.has(node.dataset.id))
+        node.classList.toggle("is-active", node.dataset.id === id)
+      })
+      edgeLayer.querySelectorAll<SVGLineElement>("line").forEach((line) => {
+        const connected = line.dataset.source === id || line.dataset.target === id
+        line.classList.toggle("is-muted", Boolean(id) && !connected)
+        line.classList.toggle("is-active", Boolean(id) && connected)
+      })
+    }
+
+    const renderGraph = () => {
+      visiblePages = pagesForScope()
+      const ids = new Set(visiblePages.map((page) => page.id))
+      visibleEdges = data.edges.filter((edge) => ids.has(edge.source) && ids.has(edge.target))
+      positions = layout(visiblePages)
+      edgeLayer.replaceChildren()
+      nodeLayer.replaceChildren()
+
+      visibleEdges.forEach((edge) => {
+        const line = document.createElementNS(SVG_NS, "line")
+        line.dataset.source = edge.source
+        line.dataset.target = edge.target
+        edgeLayer.append(line)
+      })
+
+      visiblePages.forEach((page) => {
+        const point = positions.get(page.id)
+        if (!point) return
+        const node = document.createElementNS(SVG_NS, "g")
+        const circle = document.createElementNS(SVG_NS, "circle")
+        const label = document.createElementNS(SVG_NS, "text")
+        node.classList.add("graph-node")
+        node.dataset.id = page.id
+        node.setAttribute("role", "link")
+        node.setAttribute("tabindex", "0")
+        node.setAttribute("aria-label", page.title)
+        node.setAttribute("transform", `translate(${point.x} ${point.y})`)
+        if (page.contentType === "project") node.classList.add("is-project")
+        circle.setAttribute("r", page.contentType === "project" ? "12" : "7")
+        label.setAttribute("x", "0")
+        label.setAttribute("y", page.contentType === "project" ? "29" : "23")
+        label.setAttribute("text-anchor", "middle")
+        label.textContent = page.title
+        node.append(circle, label)
+        nodeLayer.append(node)
+
+        const selectNode = () => {
+          highlight(page.id)
+          selection.innerHTML = `<strong>${page.title}</strong><span>${page.description || page.contentType}</span>`
+        }
+        node.addEventListener("pointerenter", selectNode)
+        node.addEventListener("focus", selectNode)
+        node.addEventListener("pointerleave", () => {
+          if (!dragging) highlight()
+        })
+        node.addEventListener("blur", () => highlight())
+        node.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") window.location.assign(hrefFor(page.id))
+        })
+        node.addEventListener("pointerdown", (event) => {
+          event.stopPropagation()
+          node.setPointerCapture(event.pointerId)
+          dragging = {
+            id: page.id,
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startY: event.clientY,
+            moved: false,
+          }
+        })
+        node.addEventListener("pointermove", (event) => {
+          if (!dragging || dragging.pointerId !== event.pointerId) return
+          if (Math.hypot(event.clientX - dragging.startX, event.clientY - dragging.startY) > 3) {
+            dragging.moved = true
+          }
+          const next = localPoint(event)
+          positions.set(page.id, next)
+          node.setAttribute("transform", `translate(${next.x} ${next.y})`)
+          updateEdges()
+        })
+        node.addEventListener("pointerup", (event) => {
+          if (!dragging || dragging.pointerId !== event.pointerId) return
+          const shouldOpen = !dragging.moved
+          dragging = undefined
+          if (shouldOpen) window.location.assign(hrefFor(page.id))
+        })
+      })
+
+      updateEdges()
+      status.textContent = `${visiblePages.length} ${visiblePages.length === 1 ? "page" : "pages"} · ${visibleEdges.length} ${visibleEdges.length === 1 ? "link" : "links"}`
+      selection.textContent = "Select a node to see its details."
+      highlight()
+    }
+
+    const filteredDirectoryPages = () => {
+      const query = pageSearch.value.trim().toLocaleLowerCase()
+      return data.pages.filter((page) => {
+        const matchesKind = !pageKind.value || page.contentType === pageKind.value
+        const text = [page.title, page.description, page.contentType, ...page.tags]
+          .join(" ")
+          .toLocaleLowerCase()
+        return matchesKind && (!query || text.includes(query))
+      })
+    }
+
+    const renderDirectory = () => {
+      const filtered = filteredDirectoryPages()
+      const visible = filtered.slice(0, renderedPages)
+      pageList.replaceChildren(
+        ...visible.map((page) => {
+          const item = document.createElement("li")
+          const link = document.createElement("a")
+          const copy = document.createElement("span")
+          const title = document.createElement("strong")
+          const description = document.createElement("small")
+          const kind = document.createElement("b")
+          link.href = hrefFor(page.id)
+          title.textContent = page.title
+          description.textContent = page.description
+          kind.textContent = page.contentType
+          copy.append(title, description)
+          link.append(copy, kind)
+          item.append(link)
+          return item
+        }),
+      )
+      pageCount.textContent = `${filtered.length} ${filtered.length === 1 ? "page" : "pages"}`
+      showMore.hidden = visible.length >= filtered.length
+    }
+
+    const resetView = () => {
+      scale = 1
+      offset = { x: 0, y: 0 }
+      applyTransform()
+    }
+    const changeZoom = (factor: number) => {
+      scale = Math.min(2.6, Math.max(0.55, scale * factor))
+      applyTransform()
+    }
+
+    scopeSelect.addEventListener("change", () => {
+      resetView()
+      renderGraph()
+    })
+    root.querySelector(".graph-zoom-in")?.addEventListener("click", () => changeZoom(1.2))
+    root.querySelector(".graph-zoom-out")?.addEventListener("click", () => changeZoom(1 / 1.2))
+    root.querySelector(".graph-reset")?.addEventListener("click", resetView)
+    svg.addEventListener(
+      "wheel",
+      (event) => {
+        event.preventDefault()
+        changeZoom(event.deltaY < 0 ? 1.08 : 1 / 1.08)
+      },
+      { passive: false },
+    )
+    svg.addEventListener("pointerdown", (event) => {
+      if ((event.target as Element).closest(".graph-node")) return
+      svg.setPointerCapture(event.pointerId)
+      panning = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
+    })
+    svg.addEventListener("pointermove", (event) => {
+      if (!panning || panning.pointerId !== event.pointerId) return
+      const box = svg.getBoundingClientRect()
+      offset.x += ((event.clientX - panning.x) * 900) / box.width
+      offset.y += ((event.clientY - panning.y) * 540) / box.height
+      panning = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
+      applyTransform()
+    })
+    svg.addEventListener("pointerup", () => {
+      panning = undefined
+    })
+    pageSearch.addEventListener("input", () => {
+      renderedPages = PAGE_BATCH
+      renderDirectory()
+    })
+    pageKind.addEventListener("change", () => {
+      renderedPages = PAGE_BATCH
+      renderDirectory()
+    })
+    showMore.addEventListener("click", () => {
+      renderedPages += PAGE_BATCH
+      renderDirectory()
+    })
+
+    renderGraph()
+    renderDirectory()
+  }
+
+  function setUpGraphs() {
+    document.querySelectorAll<HTMLElement>(".graph-explorer").forEach(setUpGraph)
+  }
+
+  setUpGraphs()
+  document.addEventListener("astro:page-load", setUpGraphs)
+</script>

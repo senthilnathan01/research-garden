@@ -13,9 +13,9 @@ Starlight supplies the parts that are expensive to rebuild and easy to get wrong
 | Quartz content pipeline | Starlight content collection under `src/content/docs/` |
 | Obsidian wikilinks      | Portable Markdown links                                |
 | FlexSearch modal        | Starlight's Pagefind search                            |
-| Quartz explorer         | Starlight sidebar groups                               |
+| Quartz explorer         | Route-aware Starlight sidebar groups                   |
 | Quartz backlinks        | Build-time link analysis in `src/lib/content-graph.ts` |
-| Quartz graph and D3     | Static SVG graph generated from the same link analysis |
+| Quartz graph and D3     | Small interactive SVG graph using the same link data   |
 | Quartz page actions     | Small Astro component with browser clipboard support   |
 | Quartz research record  | Typed Starlight frontmatter and an Astro component     |
 | Quartz SPA runtime      | Static HTML pages with normal navigation               |
@@ -30,9 +30,21 @@ The public routes did not change. Folder index pages still render at paths such 
 The result feeds two views:
 
 - page footers list notes that link to the current page;
-- the graph page renders a static, linked SVG and an accessible list of every node.
+- the graph page renders a scoped, interactive SVG and a filterable directory of every public page.
 
-There is no graph library and no graph JavaScript in the browser.
+Draft and review pages are excluded. Published project indexes are identified by `content_type: project`; that metadata drives the project directory and graph scopes. The graph renders only the selected scope, while the directory reveals matching pages in batches, so the interface remains usable as the collection grows.
+
+There is no graph library. A small browser script handles pan, zoom, node dragging, relationship highlighting, page filtering, and batching.
+
+## Navigation model
+
+The homepage is a public project directory rather than an internal workspace map. Projects are the primary entry point; the graph, full-text search, and templates are secondary ways to explore.
+
+The left sidebar follows the reader:
+
+- garden-level pages show the garden and all projects;
+- a project page shows a route back to all projects and only that project's pages;
+- template pages show the template library separately from research.
 
 ## Frontmatter and publication safety
 
