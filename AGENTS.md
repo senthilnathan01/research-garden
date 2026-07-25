@@ -55,6 +55,12 @@ Before publishing a page:
 - Commit only when the user requests it. If the active task asks for incremental commits, use one commit per coherent, green checkpoint.
 - Do not push or deploy without an explicit request.
 
+## Git workflow
+
+- Use a pull-request workflow for requested repository changes: update `main`, create a focused branch, commit coherent green checkpoints, push the branch, open a PR, wait for required checks, and merge through the PR.
+- Do not push changes directly to `main` unless the user explicitly asks for that exception.
+- After merging, update local `main` to match `origin/main` and leave the working tree clean.
+
 ## Handoff
 
 After changes, summarize:
