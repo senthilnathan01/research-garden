@@ -32,7 +32,7 @@ Create or update:
 src/content/docs/projects/<project-slug>/<article-slug>.md
 ```
 
-Start from `src/content/docs/templates/article-template.md`. New pages begin as:
+New pages begin as:
 
 ```yaml
 visibility: public
@@ -56,9 +56,8 @@ Before setting `publication_status: published` and `draft: false`:
 1. Verify factual claims and citations.
 2. Set `validated` to the date the claims and links were last checked.
 3. Add direct links to public code, data, papers, demos, or results.
-4. Complete the editorial and privacy checklist in the article template.
-5. Run `npm run verify`.
-6. Review the rendered page when layout or rich content changed.
+4. Run `npm run verify`.
+5. Review the rendered page when layout or rich content changed.
 
 The content validator enforces the metadata state machine. It blocks private provenance fields and local paths, rejects raw document artifacts, requires validation dates for published research pages, checks public artifact links, and requires sources for published articles and paper pages.
 

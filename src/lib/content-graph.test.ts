@@ -7,7 +7,7 @@ import { buildGardenGraph, getBacklinks, resolveGardenLink } from "./content-gra
 
 test("resolves links relative to their source file", () => {
   assert.equal(resolveGardenLink("projects/index.md", "./alpha/"), "projects/alpha")
-  assert.equal(resolveGardenLink("projects/alpha/index.md", "../../templates/"), "templates")
+  assert.equal(resolveGardenLink("projects/alpha/index.md", "../../graph/"), "graph")
   assert.equal(resolveGardenLink("index.md", "/research-garden/graph/"), "graph")
   assert.equal(resolveGardenLink("index.md", "https://example.com"), undefined)
 })

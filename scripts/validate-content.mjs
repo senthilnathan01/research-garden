@@ -12,7 +12,6 @@ const allowedTypes = new Set([
   "note",
   "resource",
   "experiment",
-  "template",
 ])
 const sourcedTypes = new Set(["article", "paper"])
 const validatedTypes = new Set(["project", "article", "paper", "resource", "experiment"])

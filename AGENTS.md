@@ -4,7 +4,7 @@ This repository is a public Astro and Starlight research garden. Everything unde
 
 ## Before editing
 
-- Read `README.md`, `PUBLICATION_WORKFLOW.md`, and the relevant file under `src/content/docs/templates/`.
+- Read `README.md`, `PUBLICATION_WORKFLOW.md`, and the closest existing public page for context.
 - Search for an existing project or page before creating a duplicate.
 - Treat the private knowledge vault as source material, never as publishable content.
 - Preserve standard Markdown readability and existing public routes.
@@ -12,7 +12,6 @@ This repository is a public Astro and Starlight research garden. Everything unde
 ## Content routing
 
 - Project pages go in `src/content/docs/projects/<project-slug>/`.
-- Reusable public templates go in `src/content/docs/templates/`.
 - New projects must be linked from `src/content/docs/projects/index.md`.
 - Raw captures, private reasoning, downloaded PDFs, and incomplete source notes stay in the private vault.
 
@@ -24,7 +23,7 @@ Every Markdown file under `src/content/docs/` must include:
 visibility: public
 publication_status: draft | review | published
 draft: true | false
-content_type: index | project | article | paper | note | resource | experiment | template
+content_type: index | project | article | paper | note | resource | experiment
 ```
 
 - Draft and review pages use `draft: true`.

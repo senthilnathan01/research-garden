@@ -24,9 +24,7 @@ const projects = graph.pages.filter((page) => page.contentType === "project")
     projects.length > 0 ? (
       <ul>
         {projects.map((project) => {
-          const pageCount = graph.pages.filter(
-            (page) => page.projectId === project.id && page.contentType !== "template",
-          ).length
+          const pageCount = graph.pages.filter((page) => page.projectId === project.id).length
 
           return (
             <li>

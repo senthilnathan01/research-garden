@@ -176,7 +176,7 @@ const graphData = JSON.stringify({ ...graph, base }).replace(/</g, "\\u003c")
 
     const pagesForScope = () => {
       if (scopeSelect.value === "research") {
-        return data.pages.filter((page) => page.contentType !== "template")
+        return data.pages
       }
       return data.pages.filter(
         (page) => page.id === scopeSelect.value || page.projectId === scopeSelect.value,

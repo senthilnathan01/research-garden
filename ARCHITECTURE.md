@@ -16,12 +16,12 @@ Starlight supplies the parts that are expensive to rebuild and easy to get wrong
 | Quartz explorer         | Route-aware Starlight sidebar groups                   |
 | Quartz backlinks        | Build-time link analysis in `src/lib/content-graph.ts` |
 | Quartz graph and D3     | Small interactive SVG graph using the same link data   |
-| Quartz page actions     | Small Astro component with browser clipboard support   |
-| Quartz research record  | Typed Starlight frontmatter and an Astro component     |
+| Quartz page actions     | Removed from the public reading experience             |
+| Quartz research record  | Retained as validation metadata, not rendered UI       |
 | Quartz SPA runtime      | Static HTML pages with normal navigation               |
 | Global math resources   | Removed until a page actually needs math               |
 
-The public routes did not change. Folder index pages still render at paths such as `/projects/` and `/templates/`.
+Project folder index pages render at stable paths such as `/projects/ai-safety/`.
 
 ## Content graph
 
@@ -38,13 +38,12 @@ There is no graph library. A small browser script handles pan, zoom, node draggi
 
 ## Navigation model
 
-The homepage is a public project directory rather than an internal workspace map. Projects are the primary entry point; the graph, full-text search, and templates are secondary ways to explore.
+The homepage is a public project directory rather than an internal workspace map. Projects are the primary entry point; the graph and full-text search are secondary ways to explore.
 
 The left sidebar follows the reader:
 
 - garden-level pages show the garden and all projects;
 - a project page shows a route back to all projects and only that project's pages;
-- template pages show the template library separately from research.
 
 ## Frontmatter and publication safety
 
