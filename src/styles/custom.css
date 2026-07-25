@@ -203,88 +203,6 @@ h1 {
   line-height: 1.02;
 }
 
-.research-record {
-  overflow: hidden;
-  margin-top: 1.2rem;
-  border: 1px solid var(--rg-line);
-  border-radius: 9px;
-  background: var(--rg-surface);
-  color: var(--sl-color-text);
-}
-
-.research-record-summary {
-  display: grid;
-  grid-template-columns: minmax(7.25rem, 0.7fr) minmax(0, 2fr);
-}
-
-.research-record-title {
-  display: flex;
-  align-items: center;
-  border-inline-end: 1px solid var(--rg-line);
-  padding: 0.85rem 1rem;
-  color: var(--rg-text);
-  font-size: 0.72rem;
-  font-weight: 680;
-}
-
-.research-record dl {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0;
-}
-
-.research-record dl > div {
-  min-width: 0;
-  padding: 0.72rem 0.9rem;
-}
-
-.research-record dl > div + div {
-  border-inline-start: 1px solid var(--rg-line);
-}
-
-.research-record dt {
-  margin-bottom: 0.16rem;
-  color: var(--rg-muted);
-  font-family: var(--sl-font-mono);
-  font-size: 0.61rem;
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
-}
-
-.research-record dd {
-  margin: 0;
-  color: var(--rg-text);
-  font-size: 0.74rem;
-  font-weight: 590;
-}
-
-.research-record dd.status {
-  display: flex;
-  align-items: center;
-  gap: 0.42rem;
-}
-
-.research-record dd.status::before {
-  width: 0.42rem;
-  height: 0.42rem;
-  border-radius: 50%;
-  background: var(--rg-muted);
-  content: "";
-}
-
-.research-record dd.status-published::before {
-  background: var(--sl-color-accent);
-}
-
-.research-record-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  border-top: 1px solid var(--rg-line);
-  padding: 0.55rem 0.7rem;
-}
-
-.research-record-links a,
 .page-actions button,
 .page-actions a {
   display: inline-flex;
@@ -301,7 +219,6 @@ h1 {
   text-decoration: none;
 }
 
-.research-record-links a:hover,
 .page-actions button:hover,
 .page-actions a:hover {
   border-color: var(--rg-line-strong);
@@ -853,38 +770,12 @@ footer {
     display: grid;
     gap: 0.15rem;
   }
-
-  .research-record-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .research-record-title {
-    border-bottom: 1px solid var(--rg-line);
-    border-inline-end: 0;
-    padding: 0.65rem 0.8rem;
-  }
 }
 
 @media (max-width: 32rem) {
   h1,
   .home-hero-copy h1 {
     font-size: 2.65rem;
-  }
-
-  .research-record dl {
-    grid-template-columns: 1fr;
-  }
-
-  .research-record dl > div {
-    display: grid;
-    grid-template-columns: 5.25rem minmax(0, 1fr);
-    gap: 0.5rem;
-    padding: 0.58rem 0.8rem;
-  }
-
-  .research-record dl > div + div {
-    border-top: 1px solid var(--rg-line);
-    border-inline-start: 0;
   }
 
   .graph-canvas svg {
