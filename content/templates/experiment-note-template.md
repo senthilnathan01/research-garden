@@ -1,6 +1,10 @@
 ---
 title: Experiment Note Template
 description: Starter template for experiment plans and run logs.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - experiments
@@ -10,6 +14,10 @@ tags:
 ---
 title: [Experiment Title]
 description: [What this experiment is intended to test.]
+visibility: public
+publication_status: draft
+draft: true
+content_type: experiment
 tags:
   - experiment
 ---

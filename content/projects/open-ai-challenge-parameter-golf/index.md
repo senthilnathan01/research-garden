@@ -1,6 +1,10 @@
 ---
 title: OpenAI Challenge Parameter Golf
 description: Working area for bets, logs, references, and candidate submissions for the parameter golf challenge.
+visibility: public
+publication_status: published
+draft: false
+content_type: project
 tags:
   - open-ai-challenge-parameter-golf
   - project

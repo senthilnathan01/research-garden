@@ -1,6 +1,10 @@
 ---
 title: Project Home Template
 description: Starter template for a project landing page.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - project
@@ -10,6 +14,10 @@ tags:
 ---
 title: [Project Title]
 description: [One-sentence description of the project.]
+visibility: public
+publication_status: draft
+draft: true
+content_type: project
 tags:
   - project
 ---

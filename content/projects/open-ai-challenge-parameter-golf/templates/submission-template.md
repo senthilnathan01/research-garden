@@ -1,3 +1,15 @@
+---
+title: Submission Template
+description: Starter structure for a public candidate submission.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
+tags:
+  - open-ai-challenge-parameter-golf
+  - template
+---
+
 # [Candidate Name]
 
 ## Summary

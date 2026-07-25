@@ -15,7 +15,8 @@
     "quartz": "./quartz/bootstrap-cli.mjs",
     "dev": "node ./quartz/bootstrap-cli.mjs build --serve",
     "build": "node ./quartz/bootstrap-cli.mjs build",
-    "check": "tsc --noEmit && prettier . --check",
+    "validate:content": "node ./scripts/validate-content.mjs",
+    "check": "npm run validate:content && tsc --noEmit && prettier . --check",
     "format": "prettier . --write",
     "test": "tsx --test",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"

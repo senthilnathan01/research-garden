@@ -1,6 +1,10 @@
 ---
 title: Bets
 description: Active and future ideas worth testing for the OpenAI Challenge Parameter Golf project.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - open-ai-challenge-parameter-golf
   - bets

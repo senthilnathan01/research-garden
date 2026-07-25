@@ -1,6 +1,10 @@
 ---
 title: References
 description: External links, rules, benchmarks, and supporting notes for the OpenAI Challenge Parameter Golf project.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - open-ai-challenge-parameter-golf
   - references

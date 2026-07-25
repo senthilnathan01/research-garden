@@ -18,6 +18,10 @@ actions, backlinks, and a responsive mobile navigation drawer.
   - reusable project pages, placeholder project structure, and Markdown templates
 - `content/projects/<project-slug>/`
   - the canonical location for each project garden
+- `PUBLICATION_WORKFLOW.md`
+  - the private-vault to public-garden promotion contract and release gate
+- `AGENTS.md`
+  - durable content safety, metadata, and validation rules for Codex
 - `quartz/`
   - the Quartz 4 engine and components used to build the site
 - `quartz.config.ts`
@@ -51,6 +55,12 @@ Run type and formatting checks:
 
 ```bash
 npm run check
+```
+
+Validate public-content metadata and privacy safeguards directly:
+
+```bash
+npm run validate:content
 ```
 
 Run the Quartz test suite that ships with this repo:
@@ -106,12 +116,27 @@ The template library lives in `content/templates/` and provides starter files fo
 
 - project home pages
 - project overview pages
+- public articles
 - paper notes
 - general research notes
 - resource notes
 - experiment logs
 
 Use those templates when creating additional pages inside a project folder.
+
+## Publication workflow
+
+Research is developed in a separate private knowledge vault; this repository receives only refined, cited, and publicly safe derivatives.
+
+New public pages begin with `publication_status: draft` and `draft: true`. Before publishing:
+
+1. Verify material claims and citations.
+2. Remove private notes, personal data, local paths, and raw documents.
+3. Set `publication_status: published` and `draft: false`.
+4. Run `npm run validate:content`, `npm run check`, `npm test`, and `npm run build`.
+5. Record the resulting garden path and public URL back in the private vault note.
+
+See `PUBLICATION_WORKFLOW.md` for the complete metadata contract and promotion gate.
 
 ## Publish to GitHub Pages
 
@@ -127,7 +152,9 @@ Use those templates when creating additional pages inside a project folder.
 For a normal content or config update:
 
 ```bash
+npm run validate:content
 npm run check
+npm test
 npm run build
 git add .
 git commit -m "Update research garden"

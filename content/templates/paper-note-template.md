@@ -1,6 +1,10 @@
 ---
 title: Paper Note Template
 description: Starter template for a paper note inside a project.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - paper
@@ -10,6 +14,11 @@ tags:
 ---
 title: [Paper Title]
 description: [Why this paper matters to the project.]
+visibility: public
+publication_status: draft
+draft: true
+content_type: paper
+sources: []
 tags:
   - paper
 ---
@@ -19,7 +28,7 @@ tags:
 - authors:
 - venue:
 - year:
-- link:
+- canonical URL:
 
 ## Why this matters
 
@@ -36,8 +45,17 @@ tags:
 - [Constraint]
 - [Metric]
 
+## Limitations and uncertainty
+
+- [Limitation]
+- [Unresolved uncertainty]
+
 ## Questions or follow-ups
 
 - [Open question]
 - [Potential experiment]
+
+## Sources
+
+- [Canonical external URL]
 ```

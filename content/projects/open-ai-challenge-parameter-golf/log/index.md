@@ -1,6 +1,10 @@
 ---
 title: Log
 description: Short dated work logs, experiment notes, and learnings for the OpenAI Challenge Parameter Golf project.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - open-ai-challenge-parameter-golf
   - log

@@ -1,6 +1,10 @@
 ---
 title: Projects
 description: Entry point for all research projects stored in this garden.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - projects
   - index

@@ -1,6 +1,10 @@
 ---
 title: Submissions
 description: Near-real candidate submissions that are ready to compare or package seriously.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - open-ai-challenge-parameter-golf
   - submissions

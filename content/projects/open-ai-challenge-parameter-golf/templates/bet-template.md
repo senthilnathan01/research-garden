@@ -1,3 +1,15 @@
+---
+title: Bet Template
+description: Starter structure for a public experimental bet.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
+tags:
+  - open-ai-challenge-parameter-golf
+  - template
+---
+
 # [Bet Title]
 
 ## Hypothesis

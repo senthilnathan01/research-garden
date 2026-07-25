@@ -1,6 +1,10 @@
 ---
 title: Research Garden
 description: Reusable Quartz 4 garden for multiple research projects, notes, papers, resources, and experiments.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 cssclasses:
   - home-page
 tags:

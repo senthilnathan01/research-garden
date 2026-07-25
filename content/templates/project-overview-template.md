@@ -1,6 +1,10 @@
 ---
 title: Project Overview Template
 description: Starter template for a project overview page.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - project
@@ -10,6 +14,10 @@ tags:
 ---
 title: Project Overview
 description: [Overview of the project scope, framing, and active questions.]
+visibility: public
+publication_status: draft
+draft: true
+content_type: project
 tags:
   - overview
 ---

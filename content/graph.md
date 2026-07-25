@@ -1,6 +1,10 @@
 ---
 title: Graph
 description: Use the graph and backlinks to navigate relationships across the whole research garden.
+visibility: public
+publication_status: published
+draft: false
+content_type: index
 tags:
   - graph
   - index

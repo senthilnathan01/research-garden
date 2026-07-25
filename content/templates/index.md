@@ -1,6 +1,10 @@
 ---
 title: Templates
 description: Reusable Markdown templates for new projects and notes in this garden.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - index
@@ -12,6 +16,7 @@ This section contains reusable Markdown templates for expanding the garden witho
 
 - [[project-index-template|Project home page]]
 - [[project-overview-template|Project overview]]
+- [[article-template|Public article]]
 - [[paper-note-template|Paper note]]
 - [[note-template|General research note]]
 - [[resource-note-template|Resource note]]

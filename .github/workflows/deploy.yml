@@ -35,6 +35,9 @@ jobs:
       - name: Check formatting and types
         run: npm run check
 
+      - name: Run tests
+        run: npm test
+
       - name: Build Quartz
         run: npm run build
 

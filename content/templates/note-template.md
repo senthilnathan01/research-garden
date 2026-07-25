@@ -1,6 +1,10 @@
 ---
 title: General Note Template
 description: Starter template for synthesis notes, design notes, and working thoughts.
+visibility: public
+publication_status: published
+draft: false
+content_type: template
 tags:
   - templates
   - notes
@@ -10,6 +14,10 @@ tags:
 ---
 title: [Note Title]
 description: [Short summary of the note.]
+visibility: public
+publication_status: draft
+draft: true
+content_type: note
 tags:
   - note
 ---
