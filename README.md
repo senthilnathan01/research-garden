@@ -6,7 +6,7 @@ The live site is [senthilnathan01.github.io/research-garden](https://senthilnath
 
 ![Research Garden](./public/og-image.png)
 
-The site runs on [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/). Starlight handles the documentation shell, accessibility, search, mobile navigation, and static rendering. The research-specific parts live in this repository: provenance records, backlinks, source actions, the home page, and the content graph.
+The site runs on [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/). Starlight handles the documentation shell, accessibility, search, mobile navigation, and static rendering. The research-specific parts live in this repository: backlinks, source actions, the home page, and the content graph.
 
 ## Repository map
 
@@ -14,7 +14,7 @@ The site runs on [Astro](https://astro.build/) and [Starlight](https://starlight
 src/
   components/         Custom research and documentation UI
   content/docs/       Public Markdown pages
-  lib/                Build-time graph and provenance helpers
+  lib/                Build-time content graph helpers
   styles/             Site design tokens and component styles
 public/               Images and social preview assets
 scripts/              Publication validation
