@@ -14,7 +14,8 @@ The site runs on [Astro](https://astro.build/) and [Starlight](https://starlight
 src/
   components/         Custom research and documentation UI
   content/docs/       Public Markdown pages
-  lib/                Build-time content graph helpers
+  lib/                Build-time content graph and agent-index helpers
+  pages/              Machine-readable static endpoints
   styles/             Site design tokens and component styles
 public/               Images and social preview assets
 scripts/              Publication validation
@@ -56,6 +57,12 @@ npm run build
 npm run audit:build
 npm run preview
 ```
+
+## Agent access
+
+The build publishes a machine-readable [`llms.txt`](https://senthilnathan01.github.io/research-garden/llms.txt) at the root of the GitHub Pages project. It gives agents a concise description of the garden and absolute links to its public projects and navigation.
+
+The index is generated from the content collection, so newly published projects and research pages are included automatically. Drafts are excluded.
 
 ## Add a project
 
