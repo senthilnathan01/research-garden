@@ -742,6 +742,12 @@ h1 {
   gap: 0.2rem;
 }
 
+.backlinks a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
 .graph-page-list strong,
 .backlinks strong {
   color: var(--rg-text);
