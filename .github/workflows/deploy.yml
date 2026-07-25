@@ -1,6 +1,9 @@
-name: Deploy research garden to GitHub Pages
+name: Verify and deploy research garden
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -32,6 +35,7 @@ jobs:
           build-cmd: npm run verify
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     environment:
       name: github-pages
