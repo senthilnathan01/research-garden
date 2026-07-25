@@ -203,44 +203,6 @@ h1 {
   line-height: 1.02;
 }
 
-.page-actions button,
-.page-actions a {
-  display: inline-flex;
-  min-height: 1.9rem;
-  align-items: center;
-  border: 1px solid var(--rg-line);
-  border-radius: 6px;
-  background: var(--sl-color-bg);
-  padding: 0.24rem 0.54rem;
-  color: var(--rg-muted);
-  font-family: var(--sl-font);
-  font-size: 0.7rem;
-  font-weight: 590;
-  text-decoration: none;
-}
-
-.page-actions button:hover,
-.page-actions a:hover {
-  border-color: var(--rg-line-strong);
-  color: var(--sl-color-accent-high);
-}
-
-.page-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.38rem;
-  margin-top: 0.75rem;
-}
-
-.page-actions button {
-  cursor: pointer;
-}
-
-.page-actions button.copied {
-  border-color: var(--sl-color-accent);
-  color: var(--sl-color-accent-high);
-}
-
 .home-intro {
   width: 100%;
   max-width: 100%;

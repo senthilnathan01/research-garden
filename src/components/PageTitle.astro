@@ -2,12 +2,9 @@
 import Default from "@astrojs/starlight/components/PageTitle.astro"
 import GraphExplorer from "./GraphExplorer.astro"
 import HomeHero from "./HomeHero.astro"
-import PageActions from "./PageActions.astro"
 import ProjectDirectory from "./ProjectDirectory.astro"
-import { getGardenPage } from "../lib/content-graph"
 
-const { id, entry } = Astro.locals.starlightRoute
-const page = getGardenPage(id)
+const { id } = Astro.locals.starlightRoute
 ---
 
 {
@@ -18,7 +15,6 @@ const page = getGardenPage(id)
       <Default>
         <slot />
       </Default>
-      {page && <PageActions title={entry.data.title} sourcePath={page.sourcePath} />}
       {id === "projects" && <ProjectDirectory heading="Public projects" />}
       {id === "graph" && <GraphExplorer />}
     </>
