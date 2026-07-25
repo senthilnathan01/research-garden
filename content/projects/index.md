@@ -1,6 +1,6 @@
 ---
 title: Projects
-description: Entry point for all research projects stored in this garden.
+description: Research projects, their working notes, and the experiments behind them.
 visibility: public
 publication_status: published
 draft: false
@@ -10,27 +10,25 @@ tags:
   - index
 ---
 
-Each project in this repository should live under `content/projects/<project-slug>/`.
+Each project lives under `content/projects/<project-slug>/`. The folder keeps its notes together, while normal links and backlinks still connect related work.
 
-The goal is to keep every project self-contained while preserving cross-links when ideas, references, or experiments intersect.
-
-## Current sample project
+## Current project
 
 - [[projects/open-ai-challenge-parameter-golf/index|OpenAI Challenge Parameter Golf]]
 
-The included scaffold keeps the project easy to scan with a small set of working areas:
+The project is split into four working areas:
 
 - [[projects/open-ai-challenge-parameter-golf/bets|Bets]]
 - [[projects/open-ai-challenge-parameter-golf/log|Log]]
 - [[projects/open-ai-challenge-parameter-golf/references|References]]
 - [[projects/open-ai-challenge-parameter-golf/submissions|Submissions]]
 
-## Add a new project
+## Start another project
 
 1. Duplicate the placeholder project folder.
 2. Rename the folder to the new slug.
 3. Update each page title, description, and internal link.
 4. Keep the sample working areas or rename them to fit the project.
-5. Start adding real content instead of placeholder text.
+5. Replace the placeholders with project notes.
 
-If you want starter copy for new pages, use [[templates/index|the template library]].
+The [[templates/index|template library]] has starting points for the common note types.

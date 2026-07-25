@@ -7,7 +7,7 @@ const SiteHeader: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
 
   return (
     <div class="site-header">
-      <a class="site-header-brand" href={root} aria-label="Research Garden home">
+      <a class="site-header-brand" href={root}>
         <span class="site-header-mark" aria-hidden="true">
           RG
         </span>
@@ -28,7 +28,6 @@ const SiteHeader: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
         rel="noreferrer noopener"
       >
         Main site
-        <span aria-hidden="true">↗</span>
       </a>
     </div>
   )

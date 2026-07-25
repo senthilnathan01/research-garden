@@ -24,10 +24,12 @@ function toggleExplorer(this: HTMLElement) {
   const nearestExplorer = this.closest(".explorer") as HTMLElement
   if (!nearestExplorer) return
   const explorerCollapsed = nearestExplorer.classList.toggle("collapsed")
-  nearestExplorer.setAttribute(
-    "aria-expanded",
-    nearestExplorer.getAttribute("aria-expanded") === "true" ? "false" : "true",
-  )
+  this.setAttribute("aria-expanded", explorerCollapsed ? "false" : "true")
+
+  const mobileLabel = this.querySelector(".mobile-explorer-label")
+  if (mobileLabel) {
+    mobileLabel.textContent = explorerCollapsed ? "Browse research" : "Close navigation"
+  }
 
   if (!explorerCollapsed) {
     // Stop <html> from being scrollable when mobile explorer is open
@@ -280,7 +282,11 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
 
     if (mobileExplorer.checkVisibility()) {
       explorer.classList.add("collapsed")
-      explorer.setAttribute("aria-expanded", "false")
+      mobileExplorer.setAttribute("aria-expanded", "false")
+      const mobileLabel = mobileExplorer.querySelector(".mobile-explorer-label")
+      if (mobileLabel) {
+        mobileLabel.textContent = "Browse research"
+      }
 
       // Allow <html> to be scrollable when mobile explorer is collapsed
       document.documentElement.classList.remove("mobile-no-scroll")

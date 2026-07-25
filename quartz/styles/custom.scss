@@ -438,10 +438,11 @@ code {
 }
 
 .section-li > .section .meta,
-.recent-notes .meta {
+.recent-notes > ul.recent-ul > li .section > .meta {
   color: var(--gray);
   font-family: var(--codeFont);
   font-size: 0.68rem;
+  opacity: 1;
 }
 
 .page-footer {
@@ -503,8 +504,24 @@ body[data-slug="index"] .page-header {
   padding-top: 0 !important;
 }
 
+body[data-slug="index"] .page > #quartz-body {
+  grid-template-columns: 252px minmax(0, 998px);
+  grid-template-areas:
+    "grid-sidebar-left grid-center"
+    "grid-sidebar-left grid-footer";
+  max-width: 1250px;
+}
+
+body[data-slug="index"] .page > #quartz-body .center {
+  grid-area: grid-center;
+}
+
+body[data-slug="index"] .page > #quartz-body .sidebar.right {
+  display: none;
+}
+
 body[data-slug="index"] .center > article {
-  max-width: 44rem;
+  max-width: 48rem;
 }
 
 body[data-slug="index"] .center > article > p:first-child {
@@ -516,6 +533,10 @@ body[data-slug="index"] .center > hr {
 }
 
 @media all and ($tablet) {
+  body[data-slug="index"] .page > #quartz-body {
+    grid-template-columns: 252px minmax(0, 1fr);
+  }
+
   .page > #quartz-body .sidebar.left {
     top: 3.75rem;
   }
@@ -533,6 +554,14 @@ body[data-slug="index"] .center > hr {
 }
 
 @media all and ($mobile) {
+  body[data-slug="index"] .page > #quartz-body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "grid-sidebar-left"
+      "grid-center"
+      "grid-footer";
+  }
+
   .page > #quartz-body {
     padding: 0 1rem;
   }
@@ -560,15 +589,10 @@ body[data-slug="index"] .center > hr {
     box-shadow: none;
   }
 
-  .explorer button.mobile-explorer::after {
-    content: "Browse research";
+  .explorer button.mobile-explorer .mobile-explorer-label {
     color: var(--darkgray);
     font-size: 0.78rem;
     font-weight: 600;
-  }
-
-  .explorer:not(.collapsed) button.mobile-explorer::after {
-    content: "Close navigation";
   }
 
   .explorer .explorer-content {

@@ -1,6 +1,6 @@
 ---
 title: Research Garden
-description: Reusable Quartz 4 garden for multiple research projects, notes, papers, resources, and experiments.
+description: Notes, experiments, references, and project logs from Senthilnathan's research work.
 visibility: public
 publication_status: published
 draft: false
@@ -12,22 +12,22 @@ tags:
   - index
 ---
 
-## A durable home for work in motion
+## Keep the context next to the work
 
-The garden keeps the polished result and the path that produced it in the same place. Projects stay isolated enough to understand, while links, backlinks, and search expose the useful overlap.
+Finished results are easy to save. The reasoning gets lost first. This garden keeps project notes, experiment logs, references, and submissions together, so I can still see why a decision made sense at the time.
 
-### Start with the project, not the filing system
+### One folder per project
 
-Each project gets one clear landing page and a small number of working areas. Notes live close to the decisions they support, so returning to an old experiment does not require reconstructing its context.
+Every project starts with one landing page and a few working areas. Notes stay close to the decisions they support. I can return months later without rebuilding the whole story from memory.
 
-### Let structure emerge without losing it
+### Find things three ways
 
-- Use **search** when you remember the idea but not the location.
-- Use **backlinks** when you want to understand where a note is already useful.
-- Use the **graph** when relationships across projects matter more than folders.
-- Use **templates** to preserve good habits without forcing every project into the same shape.
+- **Search** finds an idea when I cannot remember its folder.
+- **Backlinks** show where a note is already being used.
+- The **graph** is useful when relationships matter more than folders.
+- **Templates** save setup time, but each project can change the structure.
 
-## The underlying structure
+## Folder layout
 
 ```text
 content/
@@ -39,7 +39,7 @@ content/
       references/index.md
       submissions/index.md
       templates/
-      templates/
+  templates/
 ```
 
-The current [[projects/open-ai-challenge-parameter-golf/index|parameter golf workspace]] is the reference implementation: compact enough to scan, structured enough to preserve bets, logs, references, and candidate submissions.
+The [[projects/open-ai-challenge-parameter-golf/index|parameter golf workspace]] is the working example. It is still small, which is useful: the structure exists, but there is no filler.

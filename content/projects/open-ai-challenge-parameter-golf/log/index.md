@@ -1,6 +1,6 @@
 ---
 title: Log
-description: Short dated work logs, experiment notes, and learnings for the OpenAI Challenge Parameter Golf project.
+description: Short dated work logs, experiment notes, and results for the OpenAI Challenge Parameter Golf project.
 visibility: public
 publication_status: published
 draft: false
@@ -11,8 +11,8 @@ tags:
   - project-area
 ---
 
-Use this area for short, dated experiment notes and learnings.
+Use this area for short, dated experiment notes and results.
 
 - Keep entries brief and append-only.
-- This is the main working memory of the project.
+- Treat the log as the project's working memory.
 - Start new entries from the [log template](../templates/log-template.md).

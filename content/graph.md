@@ -1,6 +1,6 @@
 ---
 title: Graph
-description: Use the graph and backlinks to navigate relationships across the whole research garden.
+description: See how notes and projects link to each other across the research garden.
 visibility: public
 publication_status: published
 draft: false
@@ -10,14 +10,12 @@ tags:
   - index
 ---
 
-This page is a simple landing spot for graph-first navigation.
+The graph helps when you remember how two ideas connect but not where either note lives.
 
-Use the graph panel, explorer, search, and backlinks together:
-
-- the **graph** shows local and global link structure
-- the **explorer** shows folder hierarchy
-- **search** finds pages by title or content
-- **backlinks** reveal which pages reference the current note
+- The **graph** shows links between notes.
+- The **explorer** follows the folder structure.
+- **Search** finds a page by title or text.
+- **Backlinks** show which pages point to the note you are reading.
 
 ## Useful shortcuts
 
@@ -25,4 +23,4 @@ Use the graph panel, explorer, search, and backlinks together:
 - `Ctrl` or `Cmd` + `K` opens search
 - `Ctrl` or `Cmd` + `Shift` + `K` opens tag search
 
-As the garden grows across multiple projects, this page becomes a quick way to jump between clusters without relying on a single folder tree.
+Folders show where a note was filed. The graph shows where it became useful.

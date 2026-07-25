@@ -14,12 +14,20 @@ const config: QuartzConfig = {
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
-      cdnCaching: true,
+      cdnCaching: false,
       typography: {
-        title: "Inter",
-        header: "Inter",
-        body: "Inter",
-        code: "IBM Plex Mono",
+        header: {
+          name: "Geist",
+          weights: [400, 600],
+        },
+        body: {
+          name: "Geist",
+          weights: [400, 600],
+        },
+        code: {
+          name: "Geist Mono",
+          weights: [400, 600],
+        },
       },
       colors: {
         lightMode: {
@@ -28,8 +36,8 @@ const config: QuartzConfig = {
           gray: "#6b746f",
           darkgray: "#38413c",
           dark: "#141917",
-          secondary: "#0f8f63",
-          tertiary: "#087652",
+          secondary: "#087652",
+          tertiary: "#065c40",
           highlight: "rgba(15, 143, 99, 0.09)",
           textHighlight: "#bdebd577",
         },

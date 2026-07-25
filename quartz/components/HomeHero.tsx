@@ -5,113 +5,107 @@ const HomeHero: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
   const current = (fileData.slug ?? "index") as FullSlug
 
   return (
-    <section class="home-hero">
-      <div class="home-hero-kicker">
-        <span aria-hidden="true"></span>
-        Open research, structured to compound
-      </div>
-      <h1>
-        Build ideas in public.
-        <br />
-        Keep the trail.
-      </h1>
-      <p class="home-hero-lede">
-        A living workspace for projects, experiments, references, and the decisions that connect
-        them.
-      </p>
-      <div class="home-hero-actions">
+    <div class="home-intro">
+      <section class="home-hero">
+        <div class="home-hero-copy">
+          <h1>The messy work stays.</h1>
+          <p>Projects, experiments, and references, kept beside the decisions that shaped them.</p>
+          <div class="home-hero-actions">
+            <a
+              class="home-primary-action"
+              href={resolveRelative(current, "projects/index" as FullSlug)}
+            >
+              Browse projects
+            </a>
+            <button class="home-search-action search-proxy" type="button">
+              Search the garden <kbd>⌘ K</kbd>
+            </button>
+          </div>
+        </div>
+        <picture class="home-hero-visual">
+          <source media="(max-width: 800px)" srcset="./static/research-workbench-900.webp" />
+          <img
+            src="./static/research-workbench.webp"
+            alt="An open research notebook, experiment plots, and a laptop on a working desk"
+            width="1440"
+            height="900"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
+      </section>
+
+      <nav class="home-entry-points" aria-label="Research garden highlights">
         <a
-          class="home-primary-action"
-          href={resolveRelative(current, "projects/index" as FullSlug)}
-        >
-          Explore projects <span aria-hidden="true">→</span>
-        </a>
-        <button class="home-search-action search-proxy" type="button">
-          Search the garden <kbd>⌘ K</kbd>
-        </button>
-      </div>
-      <div class="home-hero-grid">
-        <a
-          class="home-feature home-feature-wide"
+          class="home-current-project"
           href={resolveRelative(
             current,
             "projects/open-ai-challenge-parameter-golf/index" as FullSlug,
           )}
         >
-          <span class="home-feature-label">Active project</span>
-          <strong>OpenAI Challenge: Parameter Golf</strong>
-          <p>Bets, experiment logs, references, and candidate submissions in one working trail.</p>
-          <span class="home-feature-link">Open workspace →</span>
-        </a>
-        <a class="home-feature" href={resolveRelative(current, "templates/index" as FullSlug)}>
-          <span class="home-feature-index">06</span>
-          <strong>Reusable templates</strong>
+          <span>
+            <small>Current project</small>
+            <strong>OpenAI Challenge: Parameter Golf</strong>
+          </span>
           <p>
-            Start a paper note, experiment, resource, or project without rebuilding the structure.
+            Track bets, experiments, references, and submissions for the parameter golf challenge.
           </p>
-          <span class="home-feature-link">Browse templates →</span>
+          <b>View project</b>
         </a>
-        <a class="home-feature" href={resolveRelative(current, "graph" as FullSlug)}>
-          <span class="home-feature-index">∞</span>
-          <strong>Connected by design</strong>
-          <p>Follow backlinks and graph relationships when folders alone are not enough.</p>
-          <span class="home-feature-link">Open the graph →</span>
-        </a>
-      </div>
-    </section>
+        <div class="home-reference-links">
+          <a href={resolveRelative(current, "templates/index" as FullSlug)}>
+            <strong>Templates</strong>
+            <p>Start with a useful structure, then change it to fit the work.</p>
+            <span>Browse templates</span>
+          </a>
+          <a href={resolveRelative(current, "graph" as FullSlug)}>
+            <strong>Graph</strong>
+            <p>See which notes connect and where an idea shows up again.</p>
+            <span>Open graph</span>
+          </a>
+        </div>
+      </nav>
+    </div>
   )
 }
 
 HomeHero.css = `
+.home-intro {
+  padding: clamp(2.4rem, 5vw, 4.6rem) 0 1rem;
+}
+
 .home-hero {
-  padding: 3.3rem 0 1.25rem;
-}
-
-.home-hero-kicker {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(22rem, 1.14fr);
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1.35rem;
-  color: var(--secondary);
-  font-family: var(--codeFont);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  gap: clamp(2rem, 5vw, 4.5rem);
 }
 
-.home-hero-kicker > span {
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-  background: var(--secondary);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--secondary) 13%, transparent);
-}
-
-.home-hero h1 {
-  max-width: 46rem;
+.home-hero-copy h1 {
+  max-width: 9ch;
   margin: 0;
   color: var(--dark);
   font-family: var(--titleFont);
-  font-size: clamp(2.9rem, 6.5vw, 5.65rem);
-  font-weight: 610;
+  font-size: clamp(3.15rem, 5vw, 4.75rem);
+  font-weight: 630;
   letter-spacing: -0.065em;
-  line-height: 0.96;
+  line-height: 0.98;
 }
 
-.home-hero-lede {
-  max-width: 38rem;
-  margin: 1.4rem 0 0;
+.home-hero-copy > p {
+  max-width: 30rem;
+  margin: 1.3rem 0 0;
   color: var(--gray);
-  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.6;
 }
 
 .home-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 1.7rem;
+  gap: 0.6rem;
+  margin-top: 1.65rem;
 }
 
 .home-primary-action,
@@ -123,24 +117,33 @@ HomeHero.css = `
   gap: 0.55rem;
   box-sizing: border-box;
   border: 1px solid var(--line);
-  border-radius: 9px;
+  border-radius: 8px;
   padding: 0.65rem 0.9rem;
   font-family: var(--bodyFont);
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 620;
+  white-space: nowrap;
   cursor: pointer;
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
 .home-primary-action {
   border-color: var(--secondary);
   background: var(--secondary);
-  color: white !important;
-  box-shadow: 0 8px 22px color-mix(in srgb, var(--secondary) 20%, transparent);
+  color: #f7fffb !important;
 }
 
 .home-primary-action:hover {
-  border-color: color-mix(in srgb, var(--secondary) 84%, black);
-  background: color-mix(in srgb, var(--secondary) 90%, black);
+  border-color: var(--tertiary);
+  background: var(--tertiary);
+}
+
+.home-primary-action:active,
+.home-search-action:active {
+  transform: translateY(1px);
 }
 
 .home-search-action {
@@ -156,119 +159,185 @@ HomeHero.css = `
 
 .home-search-action kbd {
   border: 1px solid var(--line);
-  border-radius: 5px;
+  border-radius: 4px;
   background: var(--light);
   padding: 0.08rem 0.35rem;
   color: var(--gray);
   font-family: var(--codeFont);
-  font-size: 0.64rem;
+  font-size: 0.62rem;
   box-shadow: 0 1px 0 var(--line);
 }
 
-.home-hero-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  margin-top: 3.5rem;
-}
-
-.home-feature {
+.home-hero-visual {
   position: relative;
-  display: flex;
-  min-height: 12.5rem;
-  flex-direction: column;
-  box-sizing: border-box;
+  display: block;
   overflow: hidden;
+  aspect-ratio: 8 / 5;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: var(--surface);
-  padding: 1.25rem;
+  background: var(--surface-raised);
+}
+
+.home-hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in srgb, var(--light) 55%, transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.home-hero-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:root[saved-theme="dark"] .home-hero-visual img {
+  filter: brightness(0.82) saturate(0.88);
+}
+
+.home-entry-points {
+  margin-top: clamp(2.5rem, 5vw, 4.25rem);
+  border-top: 1px solid var(--line);
+}
+
+.home-current-project {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1.1fr) minmax(16rem, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  padding: 1.3rem 0;
   color: var(--darkgray) !important;
-  transition:
-    transform 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease;
 }
 
-.home-feature:hover {
-  transform: translateY(-2px);
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow);
+.home-current-project > span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.home-feature-wide {
-  grid-column: 1 / -1;
-  min-height: 14.5rem;
-  padding: 1.5rem;
-  background:
-    radial-gradient(circle at 88% 14%, color-mix(in srgb, var(--secondary) 17%, transparent), transparent 35%),
-    var(--surface);
-}
-
-.home-feature-label {
-  width: fit-content;
-  border: 1px solid color-mix(in srgb, var(--secondary) 30%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--secondary) 8%, var(--surface));
-  padding: 0.25rem 0.5rem;
+.home-current-project small {
   color: var(--secondary);
   font-family: var(--codeFont);
   font-size: 0.66rem;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
-.home-feature-index {
-  margin-bottom: 1.4rem;
-  color: var(--secondary);
-  font-family: var(--codeFont);
-  font-size: 0.8rem;
-}
-
-.home-feature strong {
-  max-width: 30rem;
+.home-current-project strong,
+.home-reference-links strong {
   color: var(--dark);
   font-family: var(--headerFont);
-  font-size: 1.08rem;
   letter-spacing: -0.02em;
 }
 
-.home-feature-wide strong {
-  margin-top: 2.4rem;
-  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
-}
-
-.home-feature p {
-  max-width: 35rem;
-  margin: 0.55rem 0 1.25rem;
+.home-current-project p,
+.home-reference-links p {
+  margin: 0;
   color: var(--gray);
-  font-size: 0.86rem;
-  line-height: 1.55;
+  font-size: 0.8rem;
+  font-weight: 450;
+  line-height: 1.5;
 }
 
-.home-feature-link {
-  margin-top: auto;
+.home-current-project b,
+.home-reference-links span {
   color: var(--secondary);
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 620;
+  white-space: nowrap;
+}
+
+.home-current-project:hover strong,
+.home-reference-links a:hover strong {
+  color: var(--secondary);
+}
+
+.home-reference-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.home-reference-links a {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.5rem;
+  min-height: 8.75rem;
+  box-sizing: border-box;
+  padding: 1.25rem 0;
+  color: var(--darkgray) !important;
+}
+
+.home-reference-links a + a {
+  border-left: 1px solid var(--line);
+  padding-left: 1.5rem;
+}
+
+.home-reference-links a:first-child {
+  padding-right: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-copy {
+    animation: home-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .home-hero-visual {
+    animation: home-enter 600ms 80ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes home-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 800px) {
+  .home-intro {
+    padding-top: 2.1rem;
+  }
+
   .home-hero {
-    padding-top: 2.35rem;
-  }
-
-  .home-hero h1 {
-    font-size: clamp(2.65rem, 13vw, 4.5rem);
-  }
-
-  .home-hero-grid {
     grid-template-columns: 1fr;
-    margin-top: 2.5rem;
+    gap: 1.8rem;
   }
 
-  .home-feature-wide {
-    grid-column: auto;
+  .home-hero-copy h1 {
+    max-width: 10ch;
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+  .home-hero-visual {
+    aspect-ratio: 8 / 5;
+  }
+
+  .home-current-project {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .home-reference-links {
+    grid-template-columns: 1fr;
+  }
+
+  .home-reference-links a + a {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .home-reference-links a:first-child {
+    padding-right: 0;
   }
 }
 `

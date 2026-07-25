@@ -1,6 +1,6 @@
 ---
 title: Submissions
-description: Near-real candidate submissions that are ready to compare or package seriously.
+description: Candidate submissions with enough evidence to compare or prepare for review.
 visibility: public
 publication_status: published
 draft: false
@@ -11,8 +11,8 @@ tags:
   - project-area
 ---
 
-Use this area only for near-real submission candidates.
+This area is for candidates with enough evidence to compare or prepare for review.
 
-- Promote notes here only when they have enough evidence to package or compare seriously.
-- Not every experiment belongs here.
+- Move an experiment here only when the result holds up.
+- Leave early experiments in the log.
 - Start new candidates from the [submission template](../templates/submission-template.md).

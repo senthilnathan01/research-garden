@@ -11,8 +11,8 @@ tags:
   - project-area
 ---
 
-Use this area for current and future ideas worth testing.
+Put testable ideas here before spending much time on them.
 
-- Keep one file per bet unless a small grouped note is clearly simpler later.
+- Keep one file per bet unless a short grouped note is easier to follow.
 - Start new notes from the [bet template](../templates/bet-template.md).
-- Keep active or still-useful bets here. Mark dead bets clearly or prune them when they stop helping.
+- Mark dead bets clearly. Delete them when they stop being useful.

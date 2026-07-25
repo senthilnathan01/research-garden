@@ -1,6 +1,6 @@
 ---
 title: Templates
-description: Reusable Markdown templates for new projects and notes in this garden.
+description: Markdown starting points for projects, papers, resources, notes, and experiments.
 visibility: public
 publication_status: published
 draft: false
@@ -10,7 +10,7 @@ tags:
   - index
 ---
 
-This section contains reusable Markdown templates for expanding the garden without redesigning the structure each time.
+These templates remove the blank-page setup work. Copy one, keep the parts that help, and delete the rest.
 
 ## Available templates
 
@@ -22,10 +22,10 @@ This section contains reusable Markdown templates for expanding the garden witho
 - [[resource-note-template|Resource note]]
 - [[experiment-note-template|Experiment log]]
 
-## Suggested workflow
+## How to use them
 
 1. Duplicate the placeholder project folder under `content/projects/<project-slug>/`.
-2. Use the project templates to refresh the top-level project pages.
-3. Use the note templates as new paper, resource, and experiment pages are added.
+2. Use a project template for the landing page.
+3. Copy a note template when a paper, resource, or experiment needs its own page.
 
-These files are meant to be copied and edited, not treated as real research content.
+The templates are scaffolding, not published research.

@@ -9,11 +9,10 @@ const PageActions: QuartzComponent = ({ fileData }: QuartzComponentProps) => {
   return (
     <div class="page-actions" data-page-title={title}>
       <button type="button" class="copy-page" aria-live="polite">
-        <span aria-hidden="true">＋</span>
         <span class="copy-page-label">Copy page</span>
       </button>
       <a href={sourceUrlForPage(fileData.filePath)} target="_blank" rel="noreferrer noopener">
-        View source <span aria-hidden="true">↗</span>
+        View source
       </a>
     </div>
   )

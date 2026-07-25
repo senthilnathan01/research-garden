@@ -87,11 +87,15 @@ function formatFontSpecification(
 
 export function googleFontHref(theme: Theme) {
   const { header, body, code } = theme.typography
-  const headerFont = formatFontSpecification("header", header)
-  const bodyFont = formatFontSpecification("body", body)
-  const codeFont = formatFontSpecification("code", code)
+  const fonts = new Set([
+    formatFontSpecification("header", header),
+    formatFontSpecification("body", body),
+    formatFontSpecification("code", code),
+  ])
 
-  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&display=swap`
+  return `https://fonts.googleapis.com/css2?${[...fonts]
+    .map((font) => `family=${font}`)
+    .join("&")}&display=swap`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {
@@ -116,7 +120,7 @@ const fontMimeMap: Record<string, string> = {
 
 export async function processGoogleFonts(
   stylesheet: string,
-  baseUrl: string,
+  _baseUrl: string,
 ): Promise<{
   processedStylesheet: string
   fontFiles: GoogleFontFile[]
@@ -131,7 +135,7 @@ export async function processGoogleFonts(
     const url = match[1]
     const filename = match[2]
     const extension = fontMimeMap[match[3].toLowerCase()]
-    const staticUrl = `https://${baseUrl}/static/fonts/${filename}.${extension}`
+    const staticUrl = `./static/fonts/${filename}.${extension}`
 
     processedStylesheet = processedStylesheet.replace(url, staticUrl)
     fontFiles.push({ url, filename, extension })

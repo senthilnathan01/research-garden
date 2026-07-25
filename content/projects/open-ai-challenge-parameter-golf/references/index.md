@@ -11,7 +11,7 @@ tags:
   - project-area
 ---
 
-Use this area for papers, links, repo notes, benchmarks, and other useful external resources.
+Keep papers, links, repository notes, benchmarks, and other supporting material here.
 
-- Prefer this over scattering resource notes across the project.
-- Keep grouping light and practical.
+- Use one reference area instead of scattering resource notes across the project.
+- Add categories only when the list becomes hard to scan.
