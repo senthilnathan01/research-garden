@@ -12,16 +12,7 @@ const researchFields = z.object({
   description: z.string().min(1),
   visibility: z.literal("public"),
   publication_status: z.enum(["draft", "review", "published"]),
-  content_type: z.enum([
-    "index",
-    "project",
-    "article",
-    "paper",
-    "note",
-    "resource",
-    "experiment",
-    "template",
-  ]),
+  content_type: z.enum(["index", "project", "article", "paper", "note", "resource", "experiment"]),
   validated: validationDate.optional(),
   sources: z.array(z.url()).optional(),
   artifacts: z

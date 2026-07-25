@@ -22,9 +22,6 @@ const shouldRenderSearch =
         Projects
       </a>
       <a href={`${base}graph/`} aria-current={id === "graph" ? "page" : undefined}>Graph</a>
-      <a href={`${base}templates/`} aria-current={id.startsWith("templates") ? "page" : undefined}>
-        Templates
-      </a>
     </nav>
     {shouldRenderSearch && <Search />}
   </div>

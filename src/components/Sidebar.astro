@@ -32,9 +32,7 @@ function keepPrefix(entry: SidebarEntry, prefix: string): SidebarEntry | undefin
 
 const gardenGroup = findGroup("Garden")
 const projectsGroup = findGroup("Projects")
-const templatesGroup = findGroup("Template library")
 const projectsLink = findLink(sidebar, `${base}projects/`)
-const graphLink = findLink(sidebar, `${base}graph/`)
 const projectId = id.match(/^projects\/[^/]+/)?.[0]
 
 let scopedSidebar: SidebarEntry[]
@@ -57,10 +55,6 @@ if (projectId) {
   scopedSidebar = [...(projectsLink ? [projectsLink] : []), ...namedProjectEntries]
 } else if (id === "projects") {
   scopedSidebar = [gardenGroup, projectsGroup].filter(
-    (entry): entry is SidebarEntry => entry !== undefined,
-  )
-} else if (id === "templates" || id.startsWith("templates/")) {
-  scopedSidebar = [projectsLink, graphLink, templatesGroup].filter(
     (entry): entry is SidebarEntry => entry !== undefined,
   )
 } else {

@@ -59,35 +59,34 @@ npm run preview
 
 ## Add a project
 
-Every project has its own folder:
+Every project has its own folder with an `index.md`:
 
 ```text
-src/content/docs/projects/<project-slug>/
+src/content/docs/projects/<project-slug>/index.md
 ```
 
-The parameter golf project is the reference structure:
+Start a project index with:
 
-```text
-src/content/docs/projects/open-ai-challenge-parameter-golf/
-  index.md
-  bets/index.md
-  log/index.md
-  references/index.md
-  submissions/index.md
-  templates/
+```yaml
+---
+title: Project title
+description: One-sentence public description.
+visibility: public
+publication_status: draft
+draft: true
+content_type: project
+tags:
+  - project
+---
 ```
 
-Copy that folder when the structure fits. Rename or remove sections when it does not. Projects should reflect the work rather than conform to one fixed taxonomy.
+When it is ready to publish:
 
-After copying it:
-
-1. Update the frontmatter, descriptions, and links.
-2. Keep `content_type: project` on the project index.
+1. Add a `validated` date.
+2. Set `publication_status: published` and `draft: false`.
 3. Run `npm run verify`.
 
 Published project indexes are discovered automatically. A new project appears in the homepage directory, the projects page, the scoped sidebar, and the graph selector without another navigation edit.
-
-The reusable page templates live in `src/content/docs/templates/`.
 
 ## Publish research safely
 

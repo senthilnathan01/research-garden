@@ -42,17 +42,6 @@ export default defineConfig({
             },
           ],
         },
-        {
-          label: "Template library",
-          items: [
-            {
-              autogenerate: {
-                directory: "templates",
-                collapsed: true,
-              },
-            },
-          ],
-        },
       ],
       components: {
         Header: "./src/components/Header.astro",
