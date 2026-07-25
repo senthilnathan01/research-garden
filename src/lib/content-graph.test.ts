@@ -17,15 +17,26 @@ test("builds graph edges and backlinks without indexing code examples", () => {
   fs.mkdirSync(path.join(root, "notes"))
   fs.writeFileSync(
     path.join(root, "index.md"),
-    "---\ntitle: Home\ndescription: Home\n---\n[Alpha](./notes/alpha/)\n",
+    "---\ntitle: Home\ndescription: Home\ncontent_type: index\ntags:\n  - garden\n---\n[Alpha](./notes/alpha/)\n",
   )
   fs.writeFileSync(
     path.join(root, "notes", "alpha.md"),
-    "---\ntitle: Alpha\ndescription: Alpha\n---\n```md\n[Ignored](../)\n```\n",
+    "---\ntitle: Alpha\ndescription: Alpha\ncontent_type: note\n---\n```md\n[Ignored](../)\n```\n",
+  )
+  fs.writeFileSync(
+    path.join(root, "notes", "draft.md"),
+    "---\ntitle: Draft\ndescription: Private draft\ndraft: true\ncontent_type: note\n---\n",
   )
 
   const graph = buildGardenGraph(root)
   assert.deepEqual(graph.edges, [{ source: "", target: "notes/alpha" }])
+  assert.deepEqual(
+    graph.pages.map(({ id, contentType, tags }) => ({ id, contentType, tags })),
+    [
+      { id: "", contentType: "index", tags: ["garden"] },
+      { id: "notes/alpha", contentType: "note", tags: [] },
+    ],
+  )
   assert.deepEqual(
     getBacklinks("notes/alpha", graph).map((page) => page.title),
     ["Home"],

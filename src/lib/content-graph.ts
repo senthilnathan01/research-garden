@@ -7,6 +7,9 @@ export type GardenPage = {
   title: string
   description: string
   sourcePath: string
+  contentType: string
+  projectId?: string
+  tags: string[]
 }
 
 export type GardenEdge = {
@@ -43,6 +46,17 @@ function readFrontmatter(source: string): Record<string, unknown> {
     : {}
 }
 
+function stringList(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === "string")
+    : []
+}
+
+function projectIdFromPageId(id: string): string | undefined {
+  const [root, project] = id.split("/")
+  return root === "projects" && project ? `projects/${project}` : undefined
+}
+
 function stripFencedCode(source: string): string {
   return source.replace(/^(?:```|~~~)[^\n]*\n[\s\S]*?^(?:```|~~~)\s*$/gm, "")
 }
@@ -72,21 +86,32 @@ export function buildGardenGraph(contentRoot = defaultContentRoot): GardenGraph 
     .filter((file) => /\.(?:md|mdx)$/.test(file))
     .sort()
 
-  const documents = markdownFiles.map((file) => {
-    const sourcePath = path.relative(contentRoot, file).split(path.sep).join("/")
-    const source = fs.readFileSync(file, "utf8")
-    const frontmatter = readFrontmatter(source)
+  const documents = markdownFiles
+    .map((file) => {
+      const sourcePath = path.relative(contentRoot, file).split(path.sep).join("/")
+      const source = fs.readFileSync(file, "utf8")
+      const frontmatter = readFrontmatter(source)
+      const id = pageIdFromSourcePath(sourcePath)
 
-    return {
-      page: {
-        id: pageIdFromSourcePath(sourcePath),
-        title: typeof frontmatter.title === "string" ? frontmatter.title : sourcePath,
-        description: typeof frontmatter.description === "string" ? frontmatter.description : "",
-        sourcePath,
-      },
-      source,
-    }
-  })
+      return {
+        page: {
+          id,
+          title: typeof frontmatter.title === "string" ? frontmatter.title : sourcePath,
+          description: typeof frontmatter.description === "string" ? frontmatter.description : "",
+          sourcePath,
+          contentType:
+            typeof frontmatter.content_type === "string" ? frontmatter.content_type : "index",
+          projectId: projectIdFromPageId(id),
+          tags: stringList(frontmatter.tags),
+        },
+        source,
+        isPublished:
+          frontmatter.draft !== true &&
+          frontmatter.publication_status !== "draft" &&
+          frontmatter.publication_status !== "review",
+      }
+    })
+    .filter(({ isPublished }) => isPublished)
 
   const pageIds = new Set(documents.map(({ page }) => page.id))
   const edges = documents.flatMap(({ page, source }) => {
