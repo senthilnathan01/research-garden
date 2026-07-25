@@ -386,9 +386,6 @@ h1 {
     transform 150ms ease,
     border-color 150ms ease,
     background-color 150ms ease;
-}
-
-.home-search-action {
   border-color: var(--sl-color-accent);
   background: var(--sl-color-accent);
   color: white;

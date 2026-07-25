@@ -38,7 +38,9 @@ const base = import.meta.env.BASE_URL
     if (!proxy || proxy.dataset.ready) return
     proxy.dataset.ready = "true"
     proxy.addEventListener("click", () => {
-      document.querySelector<HTMLButtonElement>("site-search button")?.click()
+      requestAnimationFrame(() => {
+        document.querySelector<HTMLButtonElement>("site-search button[data-open-modal]")?.click()
+      })
     })
   }
 
