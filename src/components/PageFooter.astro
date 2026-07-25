@@ -1,0 +1,33 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro"
+import { getBacklinks } from "../lib/content-graph"
+
+const { id } = Astro.locals.starlightRoute
+const backlinks = getBacklinks(id)
+const base = import.meta.env.BASE_URL
+---
+
+{
+  backlinks.length > 0 && (
+    <aside class="backlinks" aria-labelledby="backlinks-title" data-pagefind-ignore>
+      <div>
+        <p class="backlinks-kicker">Connected context</p>
+        <h2 id="backlinks-title">Referenced by</h2>
+      </div>
+      <ul>
+        {backlinks.map((page) => (
+          <li>
+            <a href={`${base}${page.id ? `${page.id}/` : ""}`}>
+              <strong>{page.title}</strong>
+              <span>{page.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<Default>
+  <slot />
+</Default>

@@ -1,0 +1,79 @@
+---
+import { formatRecordLabel, parseValidationDate } from "../lib/research-record"
+
+type Artifact = {
+  label: string
+  href: string
+  kind?: string
+}
+
+type Props = {
+  data: {
+    publication_status?: string
+    content_type?: string
+    validated?: string
+    sources?: string[]
+    artifacts?: Artifact[]
+  }
+}
+
+const { data } = Astro.props
+const status = data.publication_status
+const contentType = data.content_type
+const validationDate = parseValidationDate(data.validated)
+const sources = data.sources ?? []
+const artifacts = data.artifacts ?? []
+const hasRecord =
+  status || contentType || validationDate || sources.length > 0 || artifacts.length > 0
+---
+
+{
+  hasRecord && (
+    <aside class="research-record" aria-label="Research record" data-pagefind-ignore>
+      <div class="research-record-summary">
+        <span class="research-record-title">Research record</span>
+        <dl>
+          {status && (
+            <div>
+              <dt>Status</dt>
+              <dd class={`status status-${status}`}>{formatRecordLabel(status)}</dd>
+            </div>
+          )}
+          {contentType && (
+            <div>
+              <dt>Type</dt>
+              <dd>{formatRecordLabel(contentType)}</dd>
+            </div>
+          )}
+          {validationDate && (
+            <div>
+              <dt>Validated</dt>
+              <dd>
+                <time datetime={data.validated}>
+                  {new Intl.DateTimeFormat("en-US", {
+                    dateStyle: "medium",
+                    timeZone: "UTC",
+                  }).format(validationDate)}
+                </time>
+              </dd>
+            </div>
+          )}
+        </dl>
+      </div>
+      {(artifacts.length > 0 || sources.length > 0) && (
+        <nav class="research-record-links" aria-label="Research artifacts and sources">
+          {artifacts.map((artifact) => (
+            <a href={artifact.href} target="_blank" rel="noreferrer noopener">
+              {artifact.label}
+            </a>
+          ))}
+          {sources.length > 0 && (
+            <a href="#sources">
+              {sources.length} {sources.length === 1 ? "source" : "sources"}
+            </a>
+          )}
+        </nav>
+      )}
+    </aside>
+  )
+}

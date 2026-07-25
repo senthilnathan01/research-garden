@@ -1,0 +1,26 @@
+---
+import Default from "@astrojs/starlight/components/PageTitle.astro"
+import GraphExplorer from "./GraphExplorer.astro"
+import HomeHero from "./HomeHero.astro"
+import PageActions from "./PageActions.astro"
+import ResearchRecord from "./ResearchRecord.astro"
+import { getGardenPage } from "../lib/content-graph"
+
+const { id, entry } = Astro.locals.starlightRoute
+const page = getGardenPage(id)
+---
+
+{
+  id === "" ? (
+    <HomeHero />
+  ) : (
+    <>
+      <Default>
+        <slot />
+      </Default>
+      <ResearchRecord data={entry.data} />
+      {page && <PageActions title={entry.data.title} sourcePath={page.sourcePath} />}
+      {id === "graph" && <GraphExplorer />}
+    </>
+  )
+}

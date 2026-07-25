@@ -1,5 +1,11 @@
 node_modules
-public
+dist
+.astro
+public/*
+!public/icon.png
+!public/og-image.png
+!public/research-workbench-900.webp
+!public/research-workbench.webp
 .quartz-cache
 .npm-cache
 .tmp

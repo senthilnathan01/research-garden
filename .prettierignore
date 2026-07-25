@@ -1,4 +1,6 @@
 public
+dist
+.astro
 node_modules
 .quartz-cache
 AGENTS.md

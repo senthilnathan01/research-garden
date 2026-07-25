@@ -1,168 +1,111 @@
 # Research Garden
 
-This repository is a reusable Quartz 4 research garden for multiple projects, published to:
+This is where I publish engineering notes, experiments, references, and the decisions behind them.
 
-- [https://senthilnathan01.github.io/research-garden/](https://senthilnathan01.github.io/research-garden/)
+The live site is [senthilnathan01.github.io/research-garden](https://senthilnathan01.github.io/research-garden/).
 
-<img width="1278" height="858" alt="Screenshot 2026-03-26 at 11 13 26 AM" src="https://github.com/user-attachments/assets/4983c222-02bf-42f7-ba4e-f7a884bd2332" />
+![Research Garden](./public/og-image.png)
 
-It is designed as a long-lived garden, not a single-project microsite. New work should live under `content/projects/<project-slug>/`.
+The site runs on [Astro](https://astro.build/) and [Starlight](https://starlight.astro.build/). Starlight handles the documentation shell, accessibility, search, mobile navigation, and static rendering. The research-specific parts live in this repository: provenance records, backlinks, source actions, the home page, and the content graph.
 
-The interface follows a documentation-first model: persistent top navigation, command search
-(`Cmd/Ctrl + K`), a structured research index, contextual table of contents, copy-page and source
-actions, backlinks, and a responsive mobile navigation drawer.
-Published research pages also expose a compact research record with their content type, publication
-state, last human-validation date, source count, and direct links to public artifacts.
+## Repository map
 
-## What this repo contains
+```text
+src/
+  components/         Custom research and documentation UI
+  content/docs/       Public Markdown pages
+  lib/                Build-time graph and provenance helpers
+  styles/             Site design tokens and component styles
+public/               Images and social preview assets
+scripts/              Publication validation
+```
 
-- `content/`
-  - reusable project pages, placeholder project structure, and Markdown templates
-- `content/projects/<project-slug>/`
-  - the canonical location for each project garden
-- `PUBLICATION_WORKFLOW.md`
-  - the private-vault to public-garden promotion contract and release gate
-- `AGENTS.md`
-  - durable content safety, metadata, and validation rules for Codex
-- `quartz/`
-  - the Quartz 4 engine and components used to build the site
-- `quartz.config.ts`
-  - site-wide configuration, theme, plugins, and GitHub Pages base URL
-- `quartz.layout.ts`
-  - the shared layout, sidebars, navigation, footer links, and enabled widgets
-- `.github/workflows/deploy.yml`
-  - GitHub Pages workflow that builds and deploys the site
+Other important files:
 
-## Local setup
+- `astro.config.mjs` contains the Starlight navigation, metadata, component overrides, and GitHub Pages base path.
+- `PUBLICATION_WORKFLOW.md` defines the private-vault to public-garden contract.
+- `ARCHITECTURE.md` records the framework choice and the features rebuilt after Quartz.
+- `.github/workflows/deploy.yml` verifies and publishes the static site.
 
-Install dependencies:
+## Work locally
+
+The project requires Node 22.12 or newer.
 
 ```bash
 npm ci
-```
-
-Start the local Quartz dev server:
-
-```bash
 npm run dev
 ```
 
-Build the static site:
+The development server prints its local URL. The production build goes to `dist/`.
+
+Run the full local release gate with:
 
 ```bash
-npm run build
+npm run verify
 ```
 
-Run type and formatting checks:
+That command validates public content, checks Astro and TypeScript, checks formatting, runs the tests, builds the same static output used by GitHub Pages, and audits every internal link in that output.
 
-```bash
-npm run check
-```
-
-Validate public-content metadata and privacy safeguards directly:
-
-```bash
-npm run validate:content
-```
-
-Run the Quartz test suite that ships with this repo:
-
-```bash
-npm test
-```
-
-## Content model
-
-Every project lives under a dedicated slug:
-
-```text
-content/projects/<project-slug>/
-```
-
-Projects are flexible, but the placeholder project included in this repo is the reference scaffold:
-
-```text
-content/projects/open-ai-challenge-parameter-golf/
-```
-
-The included scaffold currently uses:
-
-```text
-index.md
-bets/index.md
-log/index.md
-references/index.md
-submissions/index.md
-templates/
-```
-
-Use those pages as durable entry points, then add child notes beneath the relevant folders over time. If a future project needs a different structure, duplicate the sample and rename the working areas rather than forcing every project into the same taxonomy.
-
-## Create a new project from the placeholder scaffold
-
-1. Duplicate the placeholder project folder.
-
-```bash
-cp -R content/projects/open-ai-challenge-parameter-golf content/projects/<new-project-slug>
-```
-
-2. Update frontmatter titles, descriptions, and placeholder text in the copied files.
-3. Replace internal links so they point to the new slug instead of `open-ai-challenge-parameter-golf`.
-4. Keep the sample working areas or rename them to fit the project.
-5. Add real notes under the relevant folders as the project grows.
-6. Add the new project to `content/projects/index.md`.
-
-## Reusable Markdown templates
-
-The template library lives in `content/templates/` and provides starter files for:
-
-- project home pages
-- project overview pages
-- public articles
-- paper notes
-- general research notes
-- resource notes
-- experiment logs
-
-Use those templates when creating additional pages inside a project folder.
-
-## Publication workflow
-
-Research is developed in a separate private knowledge vault; this repository receives only refined, cited, and publicly safe derivatives.
-
-New public pages begin with `publication_status: draft` and `draft: true`. Before publishing:
-
-1. Verify material claims and citations.
-2. Remove private notes, personal data, local paths, and raw documents.
-3. Record a `validated: YYYY-MM-DD` date for projects, articles, papers, resources, and experiments.
-4. Add `artifacts` entries for any public code, data, paper, demo, or result.
-5. Set `publication_status: published` and `draft: false`.
-6. Run `npm run validate:content`, `npm run check`, `npm test`, and `npm run build`.
-7. Record the resulting garden path and public URL back in the private vault note.
-
-See `PUBLICATION_WORKFLOW.md` for the complete metadata contract and promotion gate.
-
-## Publish to GitHub Pages
-
-1. Push this repository to GitHub.
-2. In the repository settings, open **Pages** and set **Source** to **GitHub Actions**.
-3. Push to `main` or `master`.
-4. GitHub Actions will run `.github/workflows/deploy.yml` and publish the built `public/` output to:
-
-- [https://senthilnathan01.github.io/research-garden/](https://senthilnathan01.github.io/research-garden/)
-
-## Update workflow
-
-For a normal content or config update:
+Individual commands are also available:
 
 ```bash
 npm run validate:content
 npm run check
 npm test
 npm run build
-git add .
-git commit -m "Update research garden"
-git push origin main
+npm run audit:build
+npm run preview
 ```
 
-If you make broad structural changes, take a checkpoint commit before continuing so the garden stays easy to review and roll back.
+## Add a project
+
+Every project has its own folder:
+
+```text
+src/content/docs/projects/<project-slug>/
+```
+
+The parameter golf project is the reference structure:
+
+```text
+src/content/docs/projects/open-ai-challenge-parameter-golf/
+  index.md
+  bets/index.md
+  log/index.md
+  references/index.md
+  submissions/index.md
+  templates/
+```
+
+Copy that folder when the structure fits. Rename or remove sections when it does not. Projects should reflect the work rather than conform to one fixed taxonomy.
+
+After copying it:
+
+1. Update the frontmatter, descriptions, and links.
+2. Add the project to `src/content/docs/projects/index.md`.
+3. Run `npm run verify`.
+
+The reusable page templates live in `src/content/docs/templates/`.
+
+## Publish research safely
+
+Private research stays in a separate knowledge vault. This repository receives a public, self-contained derivative.
+
+New pages start with:
+
+```yaml
+visibility: public
+publication_status: draft
+draft: true
+content_type: article
+```
+
+Before publishing, verify the claims and links, remove private paths and raw documents, record the validation date, and add public sources or artifacts. Then set `publication_status: published`, set `draft: false`, and run `npm run verify`.
+
+The validator blocks private provenance fields, local filesystem paths, raw document files, invalid state transitions, and incomplete source metadata. The full contract is in `PUBLICATION_WORKFLOW.md`.
+
+## Deploy
+
+GitHub Pages must use GitHub Actions as its source. A push to `main` or `master` runs the workflow, executes `npm run verify`, and deploys `dist/`.
+
+Commits should be small enough to review and roll back, but each commit should leave the repository in a working state. A coherent UI change, test addition, or documentation update is a useful commit boundary. A single line is usually not.

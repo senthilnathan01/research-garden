@@ -195,7 +195,7 @@ export function validateContent(contentRoot) {
 
 function main() {
   const repositoryRoot = path.resolve(import.meta.dirname, "..")
-  const contentRoot = path.join(repositoryRoot, "content")
+  const contentRoot = path.join(repositoryRoot, "src", "content", "docs")
   const result = validateContent(contentRoot)
 
   if (result.errors.length > 0) {

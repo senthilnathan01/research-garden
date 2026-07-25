@@ -1,0 +1,47 @@
+---
+type Props = {
+  title: string
+  sourcePath: string
+}
+
+const { title, sourcePath } = Astro.props
+const sourceUrl = `https://github.com/senthilnathan01/research-garden/blob/main/src/content/docs/${sourcePath}`
+---
+
+<div class="page-actions" data-page-title={title} data-pagefind-ignore>
+  <button type="button" class="copy-page" aria-live="polite">
+    <span class="copy-page-label">Copy page</span>
+  </button>
+  <a href={sourceUrl} target="_blank" rel="noreferrer noopener">View source</a>
+</div>
+
+<script>
+  function setUpCopyPage() {
+    const actionBar = document.querySelector<HTMLElement>(".page-actions")
+    const copyButton = actionBar?.querySelector<HTMLButtonElement>(".copy-page")
+    const article = document.querySelector<HTMLElement>(".sl-markdown-content")
+    if (!actionBar || !copyButton || !article || copyButton.dataset.ready) return
+
+    copyButton.dataset.ready = "true"
+    copyButton.addEventListener("click", async () => {
+      const label = copyButton.querySelector(".copy-page-label")
+      const title = actionBar.dataset.pageTitle ?? document.title
+      const pageText = `# ${title}\n\n${article.innerText.trim()}`
+
+      try {
+        await navigator.clipboard.writeText(pageText)
+        copyButton.classList.add("copied")
+        if (label) label.textContent = "Copied"
+        window.setTimeout(() => {
+          copyButton.classList.remove("copied")
+          if (label) label.textContent = "Copy page"
+        }, 1800)
+      } catch {
+        if (label) label.textContent = "Copy failed"
+      }
+    })
+  }
+
+  setUpCopyPage()
+  document.addEventListener("astro:page-load", setUpCopyPage)
+</script>
