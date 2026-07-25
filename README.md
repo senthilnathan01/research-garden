@@ -11,6 +11,8 @@ It is designed as a long-lived garden, not a single-project microsite. New work 
 The interface follows a documentation-first model: persistent top navigation, command search
 (`Cmd/Ctrl + K`), a structured research index, contextual table of contents, copy-page and source
 actions, backlinks, and a responsive mobile navigation drawer.
+Published research pages also expose a compact research record with their content type, publication
+state, last human-validation date, source count, and direct links to public artifacts.
 
 ## What this repo contains
 
@@ -132,9 +134,11 @@ New public pages begin with `publication_status: draft` and `draft: true`. Befor
 
 1. Verify material claims and citations.
 2. Remove private notes, personal data, local paths, and raw documents.
-3. Set `publication_status: published` and `draft: false`.
-4. Run `npm run validate:content`, `npm run check`, `npm test`, and `npm run build`.
-5. Record the resulting garden path and public URL back in the private vault note.
+3. Record a `validated: YYYY-MM-DD` date for projects, articles, papers, resources, and experiments.
+4. Add `artifacts` entries for any public code, data, paper, demo, or result.
+5. Set `publication_status: published` and `draft: false`.
+6. Run `npm run validate:content`, `npm run check`, `npm test`, and `npm run build`.
+7. Record the resulting garden path and public URL back in the private vault note.
 
 See `PUBLICATION_WORKFLOW.md` for the complete metadata contract and promotion gate.
 

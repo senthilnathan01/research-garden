@@ -18,6 +18,11 @@ visibility: public
 publication_status: draft
 draft: true
 content_type: project
+validated: YYYY-MM-DD
+artifacts:
+  - label: "Project repository"
+    href: https://github.com/example/project
+    kind: code
 tags:
   - overview
 ---

@@ -18,7 +18,12 @@ visibility: public
 publication_status: draft
 draft: true
 content_type: paper
+validated: YYYY-MM-DD
 sources: []
+artifacts:
+  - label: "Canonical paper"
+    href: https://example.com/
+    kind: paper
 tags:
   - paper
 ---

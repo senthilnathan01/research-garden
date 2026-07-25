@@ -18,6 +18,11 @@ visibility: public
 publication_status: draft
 draft: true
 content_type: resource
+validated: YYYY-MM-DD
+artifacts:
+  - label: "Primary resource"
+    href: https://example.com/
+    kind: other
 tags:
   - resource
 ---

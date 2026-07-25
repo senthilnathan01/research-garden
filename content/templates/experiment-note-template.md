@@ -18,6 +18,11 @@ visibility: public
 publication_status: draft
 draft: true
 content_type: experiment
+validated: YYYY-MM-DD
+artifacts:
+  - label: "Experiment code"
+    href: https://github.com/example/experiment
+    kind: code
 tags:
   - experiment
 ---

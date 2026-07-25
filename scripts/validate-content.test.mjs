@@ -9,8 +9,13 @@ visibility: public
 publication_status: published
 draft: false
 content_type: article
+validated: 2026-07-25
 sources:
   - https://doi.org/10.0000/example
+artifacts:
+  - label: Reproduction code
+    href: https://github.com/example/reproduction
+    kind: code
 ---
 
 # A verified article
@@ -38,6 +43,33 @@ test("requires sources and a Sources section for published articles", () => {
   assert.equal(errors.length, 2)
   assert.match(errors[0], /non-empty sources list/)
   assert.match(errors[1], /## Sources section/)
+})
+
+test("requires a real validation date for published research pages", () => {
+  const missing = validPublishedArticle.replace("validated: 2026-07-25\n", "")
+  const impossible = validPublishedArticle.replace("validated: 2026-07-25", "validated: 2026-02-30")
+
+  assert.match(
+    validateMarkdown("content/projects/example/article.md", missing)[0],
+    /need a validated date/,
+  )
+  assert.match(
+    validateMarkdown("content/projects/example/article.md", impossible)[0],
+    /need a validated date/,
+  )
+})
+
+test("validates artifact labels, URLs, and kinds", () => {
+  const invalid = validPublishedArticle.replace(
+    "  - label: Reproduction code\n    href: https://github.com/example/reproduction\n    kind: code",
+    '  - label: ""\n    href: ./private-code\n    kind: repository',
+  )
+  const errors = validateMarkdown("content/projects/example/article.md", invalid)
+
+  assert.equal(errors.length, 3)
+  assert.match(errors[0], /non-empty label/)
+  assert.match(errors[1], /absolute http\(s\) URL/)
+  assert.match(errors[2], /artifact kind/)
 })
 
 test("keeps draft pages out of the published site", () => {

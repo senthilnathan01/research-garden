@@ -39,7 +39,12 @@ visibility: public
 publication_status: draft
 draft: true
 content_type: article
+validated: YYYY-MM-DD
 sources: []
+artifacts:
+  - label: Reproduction code
+    href: https://github.com/example/reproduction
+    kind: code
 ```
 
 The public page must not contain private vault paths or note names. Keep provenance in the vault and expose only public evidence here.
@@ -49,14 +54,16 @@ The public page must not contain private vault paths or note names. Keep provena
 Before changing the page to `publication_status: published` and `draft: false`:
 
 1. Verify factual claims and citations.
-2. Complete the editorial and privacy checklist in the article template.
-3. Run `npm run validate:content`.
-4. Run `npm run check`.
-5. Run `npm test`.
-6. Run `npm run build`.
-7. Review the rendered page locally when layout or rich content changed.
+2. Set `validated` to the date the claims and links were last checked.
+3. Add direct public artifact links for code, data, papers, demos, or results when they exist.
+4. Complete the editorial and privacy checklist in the article template.
+5. Run `npm run validate:content`.
+6. Run `npm run check`.
+7. Run `npm test`.
+8. Run `npm run build`.
+9. Review the rendered page locally when layout or rich content changed.
 
-`npm run validate:content` enforces the metadata state machine, blocks private provenance fields and local paths, rejects raw document artifacts under `content/`, and requires sources for published articles and paper pages.
+`npm run validate:content` enforces the metadata state machine, blocks private provenance fields and local paths, rejects raw document artifacts under `content/`, requires validation dates for published research pages, validates public artifact links, and requires sources for published articles and paper pages.
 
 ## Record the public result privately
 

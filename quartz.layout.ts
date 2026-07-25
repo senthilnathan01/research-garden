@@ -46,6 +46,10 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ConditionalRender({
+      component: Component.ResearchRecord(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
       component: Component.PageActions(),
       condition: (page) => page.fileData.slug !== "index",
     }),
@@ -93,6 +97,10 @@ export const defaultListPageLayout: PageLayout = {
     }),
     Component.ConditionalRender({
       component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.ResearchRecord(),
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ConditionalRender({

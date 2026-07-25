@@ -28,6 +28,7 @@ import ConditionalRender from "./ConditionalRender"
 import SiteHeader from "./SiteHeader"
 import HomeHero from "./HomeHero"
 import PageActions from "./PageActions"
+import ResearchRecord from "./ResearchRecord"
 
 export {
   ArticleTitle,
@@ -60,4 +61,5 @@ export {
   SiteHeader,
   HomeHero,
   PageActions,
+  ResearchRecord,
 }

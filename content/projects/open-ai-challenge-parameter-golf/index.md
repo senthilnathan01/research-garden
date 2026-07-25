@@ -5,6 +5,14 @@ visibility: public
 publication_status: published
 draft: false
 content_type: project
+validated: 2026-07-25
+artifacts:
+  - label: Challenge repository
+    href: https://github.com/openai/parameter-golf
+    kind: code
+  - label: OpenAI retrospective
+    href: https://openai.com/index/what-parameter-golf-taught-us/
+    kind: results
 tags:
   - open-ai-challenge-parameter-golf
   - project

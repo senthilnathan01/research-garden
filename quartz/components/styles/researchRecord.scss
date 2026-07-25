@@ -1,0 +1,135 @@
+.research-record {
+  margin-top: 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--darkgray);
+  overflow: hidden;
+}
+
+.research-record-summary {
+  display: grid;
+  grid-template-columns: minmax(7.25rem, 0.7fr) minmax(0, 2fr);
+  align-items: stretch;
+}
+
+.research-record-title {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--line);
+  padding: 0.85rem 1rem;
+  color: var(--dark);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.research-record dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.research-record dl > div {
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+}
+
+.research-record dl > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.research-record dt {
+  margin-bottom: 0.16rem;
+  color: var(--gray);
+  font-family: var(--codeFont);
+  font-size: 0.62rem;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.research-record dd {
+  margin: 0;
+  color: var(--dark);
+  font-size: 0.74rem;
+  font-weight: 560;
+  line-height: 1.35;
+}
+
+.research-record dd.status {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.research-record dd.status::before {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--gray);
+  content: "";
+  flex: 0 0 auto;
+}
+
+.research-record dd.status-published::before {
+  background: var(--secondary);
+}
+
+.research-record-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  border-top: 1px solid var(--line);
+  padding: 0.55rem 0.7rem;
+}
+
+.research-record-links a {
+  display: inline-flex;
+  min-height: 1.8rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--light);
+  padding: 0.22rem 0.52rem;
+  color: var(--darkgray);
+  font-size: 0.7rem;
+  font-weight: 560;
+}
+
+.research-record-links a:hover {
+  border-color: var(--line-strong);
+  color: var(--secondary);
+}
+
+@media all and (max-width: 800px) {
+  .research-record-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .research-record-title {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.65rem 0.8rem;
+  }
+}
+
+@media all and (max-width: 520px) {
+  .research-record dl {
+    grid-template-columns: 1fr;
+  }
+
+  .research-record dl > div {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.58rem 0.8rem;
+  }
+
+  .research-record dl > div + div {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .research-record dt {
+    margin: 0;
+  }
+}

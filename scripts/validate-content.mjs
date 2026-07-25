@@ -15,6 +15,8 @@ const allowedTypes = new Set([
   "template",
 ])
 const sourcedTypes = new Set(["article", "paper"])
+const validatedTypes = new Set(["project", "article", "paper", "resource", "experiment"])
+const allowedArtifactKinds = new Set(["brief", "code", "data", "demo", "paper", "results", "other"])
 const privateFields = ["source_notes", "vault_path", "private_notes", "pdf_path"]
 const forbiddenExtensions = new Set([".pdf", ".doc", ".docx", ".ppt", ".pptx"])
 
@@ -29,7 +31,7 @@ function parseFrontmatter(source) {
   }
 
   try {
-    const data = yaml.load(match[1])
+    const data = yaml.load(match[1], { schema: yaml.JSON_SCHEMA })
     if (!data || typeof data !== "object" || Array.isArray(data)) {
       return { error: "frontmatter must be a YAML mapping" }
     }
@@ -37,6 +39,16 @@ function parseFrontmatter(source) {
   } catch (error) {
     return { error: `invalid YAML frontmatter: ${error.message}` }
   }
+}
+
+function isIsoDateOnly(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+
+  const date = new Date(`${value}T00:00:00`)
+  if (Number.isNaN(date.getTime())) return false
+
+  const [year, month, day] = value.split("-").map(Number)
+  return date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day
 }
 
 export function validateMarkdown(relativePath, source) {
@@ -77,6 +89,42 @@ export function validateMarkdown(relativePath, source) {
   for (const field of privateFields) {
     if (Object.hasOwn(frontmatter, field)) {
       errors.push(`${relativePath}: public frontmatter must not include ${field}`)
+    }
+  }
+
+  if (
+    frontmatter.publication_status === "published" &&
+    validatedTypes.has(frontmatter.content_type) &&
+    !isIsoDateOnly(frontmatter.validated)
+  ) {
+    errors.push(
+      `${relativePath}: published ${frontmatter.content_type} pages need a validated date in YYYY-MM-DD format`,
+    )
+  } else if (frontmatter.validated !== undefined && !isIsoDateOnly(frontmatter.validated)) {
+    errors.push(`${relativePath}: validated must use a real date in YYYY-MM-DD format`)
+  }
+
+  if (frontmatter.artifacts !== undefined) {
+    if (!Array.isArray(frontmatter.artifacts)) {
+      errors.push(`${relativePath}: artifacts must be a list`)
+    } else {
+      for (const artifact of frontmatter.artifacts) {
+        if (!artifact || typeof artifact !== "object" || Array.isArray(artifact)) {
+          errors.push(`${relativePath}: every artifact must be a mapping`)
+          continue
+        }
+        if (!isNonEmptyString(artifact.label)) {
+          errors.push(`${relativePath}: every artifact needs a non-empty label`)
+        }
+        if (!isNonEmptyString(artifact.href) || !/^https?:\/\//.test(artifact.href)) {
+          errors.push(`${relativePath}: every artifact href must be an absolute http(s) URL`)
+        }
+        if (artifact.kind !== undefined && !allowedArtifactKinds.has(artifact.kind)) {
+          errors.push(
+            `${relativePath}: artifact kind must be brief, code, data, demo, paper, results, or other`,
+          )
+        }
+      }
     }
   }
 

@@ -152,6 +152,16 @@ declare module "vfile" {
         cssclasses: string[]
         socialImage: string
         comments: boolean | string
+        visibility: string
+        publication_status: string
+        content_type: string
+        validated: string
+        sources: string[]
+        artifacts: {
+          label: string
+          href: string
+          kind?: string
+        }[]
       }>
   }
 }
