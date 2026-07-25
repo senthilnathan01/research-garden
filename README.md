@@ -8,6 +8,10 @@ This repository is a reusable Quartz 4 research garden for multiple projects, pu
 
 It is designed as a long-lived garden, not a single-project microsite. New work should live under `content/projects/<project-slug>/`.
 
+The interface follows a documentation-first model: persistent top navigation, command search
+(`Cmd/Ctrl + K`), a structured research index, contextual table of contents, copy-page and source
+actions, backlinks, and a responsive mobile navigation drawer.
+
 ## What this repo contains
 
 - `content/`

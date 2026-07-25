@@ -27,7 +27,8 @@ export default ((userOpts?: Partial<SearchOptions>) => {
               <circle cx="8" cy="8" r="7" />
             </g>
           </svg>
-          <p>{i18n(cfg.locale).components.search.title}</p>
+          <p>{i18n(cfg.locale).components.search.title} the garden</p>
+          <kbd aria-hidden="true">⌘ K</kbd>
         </button>
         <div class="search-container" role="dialog" aria-modal="true" aria-hidden="true">
           <div class="search-space">

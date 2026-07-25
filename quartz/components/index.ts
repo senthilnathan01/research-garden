@@ -25,6 +25,9 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
+import SiteHeader from "./SiteHeader"
+import HomeHero from "./HomeHero"
+import PageActions from "./PageActions"
 
 export {
   ArticleTitle,
@@ -54,4 +57,7 @@ export {
   Comments,
   Flex,
   ConditionalRender,
+  SiteHeader,
+  HomeHero,
+  PageActions,
 }

@@ -18,16 +18,8 @@ const recentNotesConfig = {
 
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
-  afterBody: [
-    Component.MobileOnly(Component.Backlinks()),
-    Component.MobileOnly(Component.RecentNotes(recentNotesConfig)),
-    Component.MobileOnly(
-      Component.Footer({
-        links: footerLinks,
-      }),
-    ),
-  ],
+  header: [Component.SiteHeader(), Component.Search(), Component.Darkmode()],
+  afterBody: [Component.Backlinks(), Component.RecentNotes(recentNotesConfig)],
   footer: Component.DesktopOnly(
     Component.Footer({
       links: footerLinks,
@@ -38,85 +30,88 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
+      component: Component.HomeHero(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.ArticleTitle(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.PageActions(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
   ],
   left: [
-    Component.GardenBrand(),
     Component.DesktopOnly(Component.GardenNav()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.DesktopOnly(Component.ReaderMode()) },
-      ],
-      wrap: "wrap",
-      gap: "0.5rem",
-    }),
     Component.Explorer({
-      title: "Browse Garden",
-      folderDefaultState: "collapsed",
+      title: "Research index",
+      folderDefaultState: "open",
     }),
   ],
   right: [
-    Component.DesktopOnly(
-      Component.Graph({
-        localGraph: {
-          depth: 2,
-          enableRadial: true,
-        },
-        globalGraph: {
-          depth: -1,
-          enableRadial: true,
-        },
-      }),
-    ),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-    Component.RecentNotes(recentNotesConfig),
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(
+        Component.Graph({
+          localGraph: {
+            depth: 2,
+            enableRadial: true,
+          },
+          globalGraph: {
+            depth: -1,
+            enableRadial: true,
+          },
+        }),
+      ),
+      condition: (page) => page.fileData.slug === "graph",
+    }),
   ],
 }
 
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
+      component: Component.HomeHero(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
     }),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
+    Component.ConditionalRender({
+      component: Component.ArticleTitle(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.PageActions(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
   ],
   left: [
-    Component.GardenBrand(),
     Component.DesktopOnly(Component.GardenNav()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.DesktopOnly(Component.ReaderMode()) },
-      ],
-      wrap: "wrap",
-      gap: "0.5rem",
-    }),
     Component.Explorer({
-      title: "Browse Garden",
-      folderDefaultState: "collapsed",
+      title: "Research index",
+      folderDefaultState: "open",
     }),
   ],
   right: [
-    Component.DesktopOnly(Component.Graph()),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
-    Component.RecentNotes(recentNotesConfig),
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(Component.Graph()),
+      condition: (page) => page.fileData.slug === "graph",
+    }),
   ],
 }
