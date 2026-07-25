@@ -16,7 +16,7 @@ export default defineConfig({
       favicon: "/icon.png",
       customCss: ["./src/styles/custom.css"],
       editLink: {
-        baseUrl: "https://github.com/senthilnathan01/research-garden/edit/main/src/content/docs/",
+        baseUrl: "https://github.com/senthilnathan01/research-garden/edit/main/",
       },
       lastUpdated: true,
       social: [
@@ -29,15 +29,15 @@ export default defineConfig({
       sidebar: [
         {
           label: "Garden",
-          items: [{ slug: "" }, { slug: "projects" }, { slug: "templates" }, { slug: "graph" }],
+          items: [{ slug: "" }, { slug: "projects" }, { slug: "graph" }],
         },
         {
-          label: "Parameter Golf",
+          label: "Projects",
           items: [
             {
               autogenerate: {
-                directory: "projects/open-ai-challenge-parameter-golf",
-                collapsed: false,
+                directory: "projects",
+                collapsed: true,
               },
             },
           ],
@@ -55,6 +55,8 @@ export default defineConfig({
         },
       ],
       components: {
+        Header: "./src/components/Header.astro",
+        Sidebar: "./src/components/Sidebar.astro",
         SiteTitle: "./src/components/SiteTitle.astro",
         PageTitle: "./src/components/PageTitle.astro",
         Footer: "./src/components/PageFooter.astro",

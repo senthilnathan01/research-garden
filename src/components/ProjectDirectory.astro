@@ -1,0 +1,138 @@
+---
+import { buildGardenGraph } from "../lib/content-graph"
+
+type Props = {
+  heading?: string
+  intro?: string
+}
+
+const {
+  heading = "Projects",
+  intro = "Open a project to see its experiments, references, working notes, and results.",
+} = Astro.props
+const base = import.meta.env.BASE_URL
+const graph = buildGardenGraph()
+const projects = graph.pages.filter((page) => page.contentType === "project")
+---
+
+<section class="project-directory" aria-labelledby="project-directory-title">
+  <header>
+    <h2 id="project-directory-title">{heading}</h2>
+    <p>{intro}</p>
+  </header>
+  {
+    projects.length > 0 ? (
+      <ul>
+        {projects.map((project) => {
+          const pageCount = graph.pages.filter(
+            (page) => page.projectId === project.id && page.contentType !== "template",
+          ).length
+
+          return (
+            <li>
+              <a href={`${base}${project.id}/`}>
+                <span>
+                  <strong>{project.title}</strong>
+                  <small>{project.description}</small>
+                </span>
+                <b>
+                  {pageCount} public {pageCount === 1 ? "page" : "pages"}
+                </b>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    ) : (
+      <p class="project-empty">No public projects yet.</p>
+    )
+  }
+</section>
+
+<style>
+  .project-directory {
+    margin-top: 2.75rem;
+  }
+
+  header {
+    max-width: 40rem;
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--rg-text);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    letter-spacing: -0.045em;
+  }
+
+  header p {
+    margin: 0.65rem 0 0;
+    color: var(--rg-muted);
+    line-height: 1.65;
+  }
+
+  ul {
+    margin: 1.5rem 0 0;
+    border-top: 1px solid var(--rg-line);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    border-bottom: 1px solid var(--rg-line);
+  }
+
+  a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    color: var(--rg-text);
+    text-decoration: none;
+  }
+
+  a > span {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  strong {
+    font-size: 1.08rem;
+    letter-spacing: -0.025em;
+  }
+
+  small {
+    max-width: 42rem;
+    color: var(--rg-muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  b {
+    color: var(--rg-muted);
+    font-family: var(--sl-font-mono);
+    font-size: 0.65rem;
+    font-weight: 550;
+    white-space: nowrap;
+  }
+
+  a:hover strong,
+  a:focus-visible strong {
+    color: var(--sl-color-accent-high);
+  }
+
+  .project-empty {
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--rg-line);
+    padding-top: 1.25rem;
+    color: var(--rg-muted);
+  }
+
+  @media (max-width: 40rem) {
+    a {
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+    }
+  }
+</style>
