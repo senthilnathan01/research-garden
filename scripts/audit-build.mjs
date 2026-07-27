@@ -5,6 +5,7 @@ import { pathToFileURL } from "node:url"
 const siteOrigin = "https://senthilnathan01.github.io"
 const basePath = "/research-garden"
 const maximumJavaScriptBytes = 250 * 1024
+const allowedSameOriginExternalUrls = new Set([`${siteOrigin}/`])
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -57,6 +58,7 @@ function auditLinks(buildRoot, htmlFiles) {
 
       checkedLinks += 1
       if (!url.pathname.startsWith(`${basePath}/`) && url.pathname !== basePath) {
+        if (allowedSameOriginExternalUrls.has(url.href)) continue
         errors.push(`${path.relative(buildRoot, file)}: link escapes base path: ${reference}`)
         continue
       }
