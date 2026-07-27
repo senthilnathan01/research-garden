@@ -2,7 +2,15 @@
 const { siteTitleHref } = Astro.locals.starlightRoute
 ---
 
-<a class="site-title" href={siteTitleHref}>
-  <strong>Research Garden</strong>
-  <small>Senthilnathan</small>
-</a>
+<div class="site-title">
+  <a class="site-title-garden" href={siteTitleHref}>
+    <strong>Research Garden</strong>
+  </a>
+  <a
+    class="site-title-maintainer"
+    href="https://senthilnathan01.github.io/"
+    aria-label="Visit Senthilnathan's main site"
+  >
+    By Senthilnathan <span aria-hidden="true">↗</span>
+  </a>
+</div>
