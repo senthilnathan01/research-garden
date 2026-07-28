@@ -50,6 +50,40 @@ function isIsoDateOnly(value) {
   return date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day
 }
 
+function stripFrontmatter(source) {
+  const match = source.match(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/)
+  return match ? source.slice(match[0].length) : source
+}
+
+// Collect heading levels and flag empty-alt images in the body, ignoring fenced
+// code blocks so sample Markdown and shell comments are never mistaken for
+// document structure.
+function analyzeBody(body) {
+  const headingLevels = []
+  let hasEmptyAltImage = false
+  let fenceMarker = ""
+
+  for (const line of body.split(/\r?\n/)) {
+    const fence = line.match(/^\s*(`{3,}|~{3,})/)
+    if (fence) {
+      const marker = fence[1][0]
+      if (fenceMarker === "") {
+        fenceMarker = marker
+      } else if (marker === fenceMarker) {
+        fenceMarker = ""
+      }
+      continue
+    }
+    if (fenceMarker !== "") continue
+
+    const heading = line.match(/^(#{1,6})\s+\S/)
+    if (heading) headingLevels.push(heading[1].length)
+    if (/!\[\s*\]\([^)]*\)/.test(line)) hasEmptyAltImage = true
+  }
+
+  return { headingLevels, hasEmptyAltImage }
+}
+
 export function validateMarkdown(relativePath, source) {
   const errors = []
   const parsed = parseFrontmatter(source)
@@ -64,6 +98,8 @@ export function validateMarkdown(relativePath, source) {
   }
   if (!isNonEmptyString(frontmatter.description)) {
     errors.push(`${relativePath}: description must be a non-empty string`)
+  } else if (frontmatter.description.trim().length > 160) {
+    errors.push(`${relativePath}: description must be 160 characters or fewer`)
   }
   if (frontmatter.visibility !== "public") {
     errors.push(`${relativePath}: visibility must be public`)
@@ -149,6 +185,27 @@ export function validateMarkdown(relativePath, source) {
         `${relativePath}: published ${frontmatter.content_type} pages need a ## Sources section`,
       )
     }
+
+    if (!/^## Key takeaways\s*$/m.test(source)) {
+      errors.push(
+        `${relativePath}: published ${frontmatter.content_type} pages need a ## Key takeaways section`,
+      )
+    }
+  }
+
+  const { headingLevels, hasEmptyAltImage } = analyzeBody(stripFrontmatter(source))
+
+  for (let index = 1; index < headingLevels.length; index += 1) {
+    if (headingLevels[index] > headingLevels[index - 1] + 1) {
+      errors.push(
+        `${relativePath}: heading levels must not skip (h${headingLevels[index]} follows h${headingLevels[index - 1]})`,
+      )
+      break
+    }
+  }
+
+  if (hasEmptyAltImage) {
+    errors.push(`${relativePath}: every image needs descriptive alt text`)
   }
 
   if (/\/Users\/|file:\/\//i.test(source)) {
