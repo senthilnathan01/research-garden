@@ -9,7 +9,7 @@ const validationDate = z.preprocess(
 )
 
 const researchFields = z.object({
-  description: z.string().min(1),
+  description: z.string().min(1).max(160),
   visibility: z.literal("public"),
   publication_status: z.enum(["draft", "review", "published"]),
   content_type: z.enum(["index", "project", "article", "paper", "note", "resource", "experiment"]),

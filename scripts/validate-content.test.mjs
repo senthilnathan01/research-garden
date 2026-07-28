@@ -22,6 +22,10 @@ artifacts:
 
 Supported text.
 
+## Key takeaways
+
+- The one thing to remember.
+
 ## Sources
 
 - https://doi.org/10.0000/example
@@ -91,6 +95,52 @@ test("rejects private provenance and local paths", () => {
   assert.equal(errors.length, 2)
   assert.match(errors[0], /must not include vault_path/)
   assert.match(errors[1], /local filesystem paths/)
+})
+
+test("requires a Key takeaways section for published articles", () => {
+  const invalid = validPublishedArticle.replace(
+    "## Key takeaways\n\n- The one thing to remember.\n\n",
+    "",
+  )
+  const errors = validateMarkdown("src/content/docs/projects/example/article.md", invalid)
+
+  assert.equal(errors.length, 1)
+  assert.match(errors[0], /## Key takeaways section/)
+})
+
+test("rejects an over-long description", () => {
+  const invalid = validPublishedArticle.replace(
+    "description: A concise public description.",
+    `description: ${"x".repeat(161)}`,
+  )
+  const errors = validateMarkdown("src/content/docs/projects/example/article.md", invalid)
+
+  assert.equal(errors.length, 1)
+  assert.match(errors[0], /160 characters or fewer/)
+})
+
+test("flags images without alt text", () => {
+  const invalid = validPublishedArticle.replace(
+    "Supported text.",
+    "Supported text.\n\n![](/diagram.png)",
+  )
+  const errors = validateMarkdown("src/content/docs/projects/example/article.md", invalid)
+
+  assert.equal(errors.length, 1)
+  assert.match(errors[0], /descriptive alt text/)
+})
+
+test("flags skipped heading levels but not headings inside code blocks", () => {
+  const skipped = validPublishedArticle.replace("Supported text.", "#### Skipped heading")
+  const skippedErrors = validateMarkdown("src/content/docs/projects/example/article.md", skipped)
+  assert.equal(skippedErrors.length, 1)
+  assert.match(skippedErrors[0], /heading levels must not skip/)
+
+  const fenced = validPublishedArticle.replace(
+    "Supported text.",
+    "```md\n#### Not a real heading\n```",
+  )
+  assert.deepEqual(validateMarkdown("src/content/docs/projects/example/article.md", fenced), [])
 })
 
 test("rejects raw publication artifacts by extension", () => {

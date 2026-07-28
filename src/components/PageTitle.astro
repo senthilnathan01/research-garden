@@ -4,7 +4,17 @@ import GraphExplorer from "./GraphExplorer.astro"
 import HomeHero from "./HomeHero.astro"
 import ProjectDirectory from "./ProjectDirectory.astro"
 
-const { id } = Astro.locals.starlightRoute
+const route = Astro.locals.starlightRoute
+const { id } = route
+const validated = route.entry?.data?.validated
+const validatedLabel = validated
+  ? new Intl.DateTimeFormat("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(new Date(`${validated}T00:00:00Z`))
+  : null
 ---
 
 {
@@ -15,8 +25,21 @@ const { id } = Astro.locals.starlightRoute
       <Default>
         <slot />
       </Default>
+      {validatedLabel && (
+        <p class="last-checked" data-pagefind-ignore>
+          Last checked <time datetime={validated}>{validatedLabel}</time>
+        </p>
+      )}
       {id === "projects" && <ProjectDirectory heading="Public projects" />}
       {id === "graph" && <GraphExplorer />}
     </>
   )
 }
+
+<style>
+  .last-checked {
+    margin-top: 0.5rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+</style>
