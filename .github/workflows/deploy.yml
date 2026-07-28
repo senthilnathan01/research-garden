@@ -33,6 +33,10 @@ jobs:
         with:
           node-version: 22
           build-cmd: npm run verify
+        env:
+          # Cloudflare Web Analytics beacon token. Set it as a repository
+          # variable named CF_ANALYTICS_TOKEN; the beacon is omitted when unset.
+          CF_ANALYTICS_TOKEN: ${{ vars.CF_ANALYTICS_TOKEN }}
 
   deploy:
     if: github.event_name != 'pull_request'
