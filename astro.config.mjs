@@ -4,6 +4,11 @@ import starlight from "@astrojs/starlight"
 const site = "https://senthilnathan01.github.io"
 const base = "/research-garden"
 
+// Cloudflare Web Analytics beacon token. Set CF_ANALYTICS_TOKEN in the build
+// environment to enable analytics. When unset (local dev, forks), the beacon is
+// omitted entirely, so the token never lives in the repository.
+const cfAnalyticsToken = process.env.CF_ANALYTICS_TOKEN
+
 export default defineConfig({
   site,
   base,
@@ -65,6 +70,18 @@ export default defineConfig({
             content: "summary_large_image",
           },
         },
+        ...(cfAnalyticsToken
+          ? [
+              {
+                tag: "script",
+                attrs: {
+                  defer: true,
+                  src: "https://static.cloudflareinsights.com/beacon.min.js",
+                  "data-cf-beacon": JSON.stringify({ token: cfAnalyticsToken }),
+                },
+              },
+            ]
+          : []),
       ],
     }),
   ],
