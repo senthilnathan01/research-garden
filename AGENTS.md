@@ -5,6 +5,7 @@ This repository is a public Astro and Starlight research garden. Everything unde
 ## Before editing
 
 - Read `README.md`, `PUBLICATION_WORKFLOW.md`, and the closest existing public page for context.
+- For any figure, diagram, chart, or social card, follow `FIGURE_STYLE.md`.
 - Search for an existing project or page before creating a duplicate.
 - Treat the private knowledge vault as source material, never as publishable content.
 - Preserve standard Markdown readability and existing public routes.
