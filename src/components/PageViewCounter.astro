@@ -1,0 +1,28 @@
+---
+const counterUrl = new URL("https://hits.sh/senthilnathan01.github.io/research-garden.svg")
+counterUrl.searchParams.set("view", "total")
+counterUrl.searchParams.set("style", "flat-square")
+counterUrl.searchParams.set("label", "page views")
+counterUrl.searchParams.set("color", "087652")
+counterUrl.searchParams.set("labelColor", "141917")
+---
+
+<div
+  class="page-view-counter"
+  aria-label="Garden traffic"
+  data-pagefind-ignore
+  title="Counts every page load, not unique visitors."
+>
+  <span class="page-view-counter-label">Garden traffic</span>
+  <img
+    src={counterUrl.toString()}
+    alt="All-time page views"
+    width="92"
+    height="20"
+    decoding="async"
+    fetchpriority="low"
+    referrerpolicy="no-referrer"
+    data-page-view-counter
+  />
+  <span class="page-view-counter-note">since August 2026</span>
+</div>

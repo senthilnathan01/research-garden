@@ -6,6 +6,7 @@ const siteOrigin = "https://senthilnathan01.github.io"
 const basePath = "/research-garden"
 const maximumJavaScriptBytes = 250 * 1024
 const allowedSameOriginExternalUrls = new Set([`${siteOrigin}/`])
+const pageViewCounterEndpoint = "https://hits.sh/senthilnathan01.github.io/research-garden.svg?"
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -96,6 +97,29 @@ function auditJavaScript(buildRoot, files) {
     })
 }
 
+function auditPageViewCounter(buildRoot, htmlFiles) {
+  return htmlFiles
+    .filter((file) => path.basename(file) !== "404.html")
+    .flatMap((file) => {
+      const source = fs.readFileSync(file, "utf8")
+      const relativePath = path.relative(buildRoot, file)
+      const markerCount = [...source.matchAll(/\bdata-page-view-counter\b/g)].length
+      const endpointCount = source.split(pageViewCounterEndpoint).length - 1
+      const errors = []
+
+      if (markerCount !== 1) {
+        errors.push(
+          `${relativePath}: expected exactly one site-wide page-view counter, found ${markerCount}`,
+        )
+      }
+      if (endpointCount !== 1) {
+        errors.push(`${relativePath}: page-view counter must use the shared garden endpoint`)
+      }
+
+      return errors
+    })
+}
+
 export function auditBuild(buildRoot) {
   if (!fs.existsSync(buildRoot)) {
     return { errors: [`Build output does not exist: ${buildRoot}`], htmlCount: 0, checkedLinks: 0 }
@@ -104,7 +128,11 @@ export function auditBuild(buildRoot) {
   const files = walk(buildRoot)
   const htmlFiles = files.filter((file) => file.endsWith(".html"))
   const linkAudit = auditLinks(buildRoot, htmlFiles)
-  const errors = [...linkAudit.errors, ...auditJavaScript(buildRoot, files)]
+  const errors = [
+    ...linkAudit.errors,
+    ...auditJavaScript(buildRoot, files),
+    ...auditPageViewCounter(buildRoot, htmlFiles),
+  ]
 
   return { errors, htmlCount: htmlFiles.length, checkedLinks: linkAudit.checkedLinks }
 }
