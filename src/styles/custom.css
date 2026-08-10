@@ -722,6 +722,36 @@ footer {
   font-size: 0.72rem;
 }
 
+.page-view-counter {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--rg-line);
+  color: var(--rg-muted);
+  font-size: 0.68rem;
+}
+
+.page-view-counter-label {
+  color: var(--rg-text);
+  font-family: var(--rg-font-mono);
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-view-counter img {
+  display: block;
+  width: auto;
+  height: 1.25rem;
+}
+
+.page-view-counter-note {
+  color: var(--rg-muted);
+}
+
 @media (max-width: 50rem) {
   .home-intro {
     padding-top: 2.2rem;
@@ -759,6 +789,10 @@ footer {
   .graph-selection {
     display: grid;
     gap: 0.15rem;
+  }
+
+  .page-view-counter {
+    flex-wrap: wrap;
   }
 }
 

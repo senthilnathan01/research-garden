@@ -64,6 +64,12 @@ The build publishes a machine-readable [`llms.txt`](https://senthilnathan01.gith
 
 The index is generated from the content collection, so newly published projects and research pages are included automatically. Drafts are excluded.
 
+## Page-view counter
+
+Every rendered page includes the same small footer counter, so page loads across the entire garden contribute to one all-time total. It counts non-unique page views—including refreshes and automated traffic—from August 2026 onward; it does not claim to measure people or recover traffic from before the counter was enabled.
+
+The badge is served by [Hits](https://hits.sh/), a cookie-free external counter. The shared endpoint is intentional: changing it per route would fragment the garden-wide total. Because the counter is loaded from an external service, it may not update for readers who block third-party images or when that service is unavailable; the rest of the site remains unaffected.
+
 ## Add a project
 
 Every project has its own folder with an `index.md`:

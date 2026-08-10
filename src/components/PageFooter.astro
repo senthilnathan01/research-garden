@@ -1,6 +1,7 @@
 ---
 import Default from "@astrojs/starlight/components/Footer.astro"
 import { getBacklinks } from "../lib/content-graph"
+import PageViewCounter from "./PageViewCounter.astro"
 
 const { id } = Astro.locals.starlightRoute
 const backlinks = getBacklinks(id)
@@ -31,3 +32,5 @@ const base = import.meta.env.BASE_URL
 <Default>
   <slot />
 </Default>
+
+<PageViewCounter />
